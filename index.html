@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags tell browsers how to display your page -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riko Studios - Game Development</title>
+    
+    <!-- CSS styles - this is where you customize colors, fonts, layouts -->
+    <style>
+        /* Reset default browser styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body: the main container for everything */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Header: the top section with your logo/name */
+        header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header img {
+            max-width: 600px;
+            width: 90%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+            animation: fadeIn 1s ease-in;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation menu */
+        nav {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1rem 0;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section: each major part of your page */
+        section {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        /* Grid layout for game cards */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Individual game card */
+        .game-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .game-card h3 {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Button styling */
+        .btn {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: #ffed4e;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav a {
+                display: block;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section: your studio name and tagline -->
+    <header>
+        <h1>🎮 Riko Studios</h1>
+        <p>No slogan yet...</p>
+    </header>
+
+    <!-- Navigation: links to different sections -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Main content area -->
+    <div class="container">
+        <!-- About section -->
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                Welcome to Riko Studios! We're an indie game development studio dedicated to 
+                changing the gaming community with my shitty ass games. From concept to release, 
+                every game is crafted with... Love... Maybe not the best skill but it still counts.
+            </p>
+            <p style="margin-top: 1rem;">
+                Founded in 2024, By IskraLabs. I hope i can achieve my goals since i have a few good ideas.
+            </p>
+        </section>
+
+        <!-- Games section -->
+        <section id="games">
+            <h2>Our Games</h2>
+            <div class="games-grid">
+                <!-- Game card 1 -->
+                <div class="game-card">
+                    <h3>Game Title 1</h3>
+                    <p>An exciting adventure through mysterious worlds. Coming soon!</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <!-- Game card 2 -->
+                <div class="game-card">
+                    <h3>Game Title 2</h3>
+                    <p>Fast-paced action meets strategic gameplay. In development.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+                
+                <!-- Game card 3 -->
+                <div class="game-card">
+                    <h3>Game Title 3</h3>
+                    <p>A puzzle game that challenges your mind. Concept stage.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Interested in our games? Want to collaborate? Reach out to us!</p>
+            <p style="margin-top: 1rem;">
+                📧 Email: marqueraft@gmail.com<br>
+                🐦 Twitter: https://x.com/IskraNiemi41687<br>
+                💬 Discord: 
+            </p>
+            <a href="mailto:contact@rikostudios.com" class="btn">Contact Us</a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Riko Studios. All rights reserved.</p>
+        <p>Made with ❤️ for gamers</p>
+    </footer>
+
+    <!-- JavaScript: adds interactive behavior (optional) -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Console message for visitors who check the code
+        console.log('Test, And yes i am still learning. if you see this that means the code works.');
+    </script>
+</body>
+</html>
