@@ -487,12 +487,15 @@
         <section id="about">
             <h2>About Us</h2>
             <p>
-                Welcome to Riko Studios! We're an indie game development studio dedicated to 
-                changing the gaming community with my shitty ass games. From concept to release, 
-                every game is crafted with... Love... Maybe not the best skill but it still counts.
+                Welcome to Riko Studios!
+It's just the two of us, me and Sidzo stumbling our way through the indie game dev world.
+
+We hope you enjoy our… well, projects. To be honest, we don't have any fully working games just yet. But I'm revisiting the idea of creating a demo for my game, Afterhours. By my estimate, it might be ready by the end of the month… though, you know, that's just me.
+
+And who knows? Maybe I'll finally buy the steam thing so i can upload the demo. 
             </p>
             <p style="margin-top: 1rem;">
-                Founded in 2024, By IskraLabs. (No idea what else i can say here)
+                Founded in 2024, By IskraLabs. (That's kinda it...)
             </p>
         </section>
 
@@ -568,7 +571,7 @@
                         </div>
                         <div class="team-tags">
                             <span class="team-tag">#bigbrainguy</span>
-                            <span class="team-tag">#VoiceActor</span>
+                            <span class="team-tag">#voiceactor</span>
                             <span class="team-tag">#scripter</span>
                         </div>
                         <div class="team-links">
@@ -585,7 +588,7 @@
         </section>
 
         <section id="contact">
-            <h2>Get in Touch</h2>
+            <h2>Socials</h2>
             <p>Wanna talk? or something... here are our links!</p>
             
             <h3 style="color: #ff4444; margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
@@ -617,22 +620,23 @@
     </footer>
 
     <script>
+        window.scrollTo(0, 0);
+
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                
+
                 targetSection.scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
                 });
 
-                targetSection.style.transition = 'all 0.3s';
-                targetSection.style.boxShadow = '0 0 40px rgba(255, 0, 0, 0.6)';
-                setTimeout(() => {
-                    targetSection.style.boxShadow = '';
-                }, 600);
+                targetSection.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
+                setTimeout(() => { targetSection.style.boxShadow = ''; }, 600);
+
+                history.pushState(null, '', targetId);
             });
         });
     </script>
