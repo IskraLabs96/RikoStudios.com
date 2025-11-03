@@ -7,20 +7,23 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* === THEME VARIABLES (default = RED THEME) === */
+        /* ==== THEME VARIABLES (default = RED) ==== */
         :root{
             --bg-900: #0a0a0a;
             --bg-800: #1a1a1a;
             --panel: rgba(25,25,25,0.6);
             --glass-1: rgba(20,20,20,0.7);
             --glass-2: rgba(15,15,15,0.8);
-            --muted: #999;
+
             --text-main: #ffffff;
             --text-muted: #ccc;
-            --accent: #ff3333;                 /* primary accent (text, headings) */
-            --accent-strong: rgba(255,0,0,0.8);/* used in gradients */
-            --accent-deep: rgba(139,0,0,0.6);  /* deep red used in borders & shadows */
-            --accent-glow: rgba(255,0,0,0.3);  /* soft glow */
+            --muted: #999;
+
+            /* Primary accent variables (start as red theme) */
+            --accent: #ff3333;                 /* headings, highlights */
+            --accent-strong: rgba(255,0,0,0.8);/* gradient highlight */
+            --accent-deep: rgba(139,0,0,0.6);  /* deep red for borders/shadows */
+            --accent-glow: rgba(255,0,0,0.3);  /* glow color */
             --btn-border: rgba(255,0,0,0.3);
             --card-border: rgba(139,0,0,0.3);
             --card-border-strong: rgba(139,0,0,0.6);
@@ -29,9 +32,9 @@
             --logo-drop: rgba(255,0,0,0.3);
         }
 
-        /* === PURPLE MODE OVERRIDES (Luxury Purple dominant, Indigo highlight) === */
+        /* ==== PURPLE MODE (Luxury Purple primary with Indigo highlights) ==== */
         body.purple-mode {
-            --accent: #743089;                 /* Luxury Purple primary */
+            --accent: #743089;                 /* Luxury Purple */
             --accent-strong: rgba(116,48,137,0.95);
             --accent-deep: rgba(75,0,130,0.6); /* Indigo-ish deeper accent */
             --accent-glow: rgba(116,48,137,0.35);
@@ -41,14 +44,14 @@
             --shadow-accent: rgba(75,0,130,0.45);
             --neon-flicker: rgba(180,120,220,0.7);
             --logo-drop: rgba(116,48,137,0.35);
-            --bg-900: #060206; /* slightly deeper background to feel purple */
+            --bg-900: #060206;
             --bg-800: #140214;
             --panel: rgba(18,10,25,0.6);
         }
 
-        /* === GENERIC RESET / LAYOUT === */
+        /* ==== RESET / LAYOUT ==== */
         *{ margin:0; padding:0; box-sizing:border-box; }
-        html,body{ height:100%; }
+        html, body { height:100%; }
         body {
             font-family: 'Roboto Condensed', sans-serif;
             background: var(--bg-900);
@@ -60,11 +63,11 @@
             -moz-osx-font-smoothing:grayscale;
         }
 
-        /* background subtle layered */
+        /* layered background that switches with mode */
         body::before{
             content: '';
             position: fixed;
-            inset:0;
+            top:0; left:0; right:0; bottom:0;
             background:
                 radial-gradient(circle at 10% 20%, rgba(139,0,0,0.12) 0%, transparent 40%),
                 radial-gradient(circle at 90% 80%, rgba(255,0,0,0.08) 0%, transparent 40%),
@@ -73,8 +76,6 @@
             z-index:-1;
             transition: background 0.35s linear;
         }
-
-        /* ease switching background when in purple-mode */
         body.purple-mode::before{
             background:
                 radial-gradient(circle at 10% 20%, rgba(116,48,137,0.13) 0%, transparent 40%),
@@ -89,8 +90,7 @@
             padding: 2rem 0 1rem;
             text-align:center;
             border-bottom: 1px solid var(--card-border);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5),
-                        0 0 60px var(--accent-glow);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
             position: sticky;
             top:0;
             z-index:100;
@@ -166,7 +166,6 @@
             transition: border-color 0.35s linear, box-shadow 0.35s linear, background 0.35s linear;
         }
 
-        /* update inset when purple-mode toggled */
         body.purple-mode section{
             box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 0 60px rgba(116,48,137,0.03);
         }
@@ -277,7 +276,7 @@
         }
         footer p{ margin:0.5rem 0; }
 
-        /* === ANIMATIONS: SNAPPY FLICKER + NEON PULSE === */
+        /* ==== ANIMATIONS: SNAPPY FLICKER + NEON PULSE ==== */
         @keyframes neonFlicker {
             0%   { text-shadow: 0 0 0 rgba(0,0,0,0); filter: brightness(1); }
             10%  { text-shadow: 0 0 20px var(--neon-flicker); filter: brightness(1.2); }
@@ -300,7 +299,6 @@
             animation: neonFlicker 380ms linear both;
         }
 
-        /* when purple-mode is toggled, add a very short flicker to elements */
         body.purple-mode .btn,
         body.purple-mode header img,
         body.purple-mode section h2,
@@ -319,14 +317,21 @@
         /* subtle focus outlines for accessibility */
         a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset:2px; }
 
-        /* keyframes for fade/slide used earlier */
+        /* basic fade/slide keys */
         @keyframes fadeIn { from{ opacity:0 } to{ opacity:1 } }
-        @keyframes slideUp {
-            from { opacity:0; transform: translateY(40px); }
-            to   { opacity:1; transform: translateY(0); }
+        @keyframes slideUp { from { opacity:0; transform: translateY(40px); } to { opacity:1; transform: translateY(0); } }
+
+        /* strong flicker overlay helper */
+        body.flicker-strong::after{
+            content:'';
+            position:fixed; inset:0; pointer-events:none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+            mix-blend-mode: screen;
+            animation: neonFlicker 380ms linear;
+            z-index:9999;
         }
 
-        /* short responsive adjustments */
+        /* ==== RESPONSIVE ==== */
         @media (max-width:768px) {
             header img { max-width:90%; }
             nav a { display:block; margin:0.5rem auto; max-width:200px; }
@@ -337,16 +342,6 @@
             .team-grid { grid-template-columns:1fr; }
             .team-member { flex-direction:column; align-items:center; text-align:center; }
             .social-links { flex-direction:column; }
-        }
-
-        /* utility to add an extra strong flicker on body when toggling */
-        body.flicker-strong::after{
-            content:'';
-            position:fixed; inset:0; pointer-events:none;
-            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
-            mix-blend-mode: screen;
-            animation: neonFlicker 380ms linear;
-            z-index:9999;
         }
     </style>
 </head>
@@ -439,7 +434,7 @@
                     </div>
                 </div>
 
-                <!-- SIDZO: note the .sidzo class on this card -->
+                <!-- SIDZO CARD: has .sidzo class -->
                 <div class="team-member sidzo">
                     <img src="team_member2.png" alt="Team Member 2">
                     <div class="team-info">
@@ -524,8 +519,8 @@
 
             // helper: add purple-mode with a quick flicker
             function activatePurpleMode(){
-                // if already purple-mode, briefly retrigger flicker visual
                 if(body.classList.contains('purple-mode')){
+                    // retrigger strong flicker briefly
                     body.classList.add('flicker-strong');
                     requestAnimationFrame(()=> {
                         setTimeout(()=> body.classList.remove('flicker-strong'), 420);
@@ -535,14 +530,13 @@
 
                 body.classList.add('purple-mode', 'flicker-strong');
 
-                // remove the flicker helper after animation
+                // remove flicker helper after short animation
                 setTimeout(()=> body.classList.remove('flicker-strong'), 420);
 
-                // add a short page-wide flicker animation class to key elements (for snappy effect)
+                // add a short flicker animation to key elements for snappiness
                 const els = document.querySelectorAll('header img, .btn, section h2, .team-info h3, .team-member, nav a');
                 els.forEach(el => {
                     el.classList.add('flicker-glow');
-                    // remove after animation finished
                     setTimeout(()=> el.classList.remove('flicker-glow'), 420);
                 });
             }
@@ -553,7 +547,6 @@
                 body.classList.add('flicker-strong');
                 setTimeout(()=> body.classList.remove('flicker-strong'), 420);
 
-                // also add flicker to elements while removing purple-mode quickly
                 const els = document.querySelectorAll('header img, .btn, section h2, .team-info h3, .team-member, nav a');
                 els.forEach(el => {
                     el.classList.add('flicker-glow');
@@ -563,18 +556,16 @@
                 // remove the mode after a fraction of a second so flicker appears before revert
                 setTimeout(()=> {
                     body.classList.remove('purple-mode');
-                }, 80); // very snappy revert
+                }, 80);
             }
 
             // Mouse enter / leave for desktop
             sidzoCard.addEventListener('mouseenter', (e) => {
                 if(hoverTimeout) { clearTimeout(hoverTimeout); hoverTimeout = null; }
-                // quick activation
                 activatePurpleMode();
             });
 
             sidzoCard.addEventListener('mouseleave', (e) => {
-                // small debounce so quick mouse slips don't spam
                 if(hoverTimeout) clearTimeout(hoverTimeout);
                 hoverTimeout = setTimeout(()=> {
                     deactivatePurpleMode();
@@ -585,7 +576,6 @@
             let touchTimer = 0;
             sidzoCard.addEventListener('touchstart', (e) => {
                 const now = Date.now();
-                // prevent double-tap weirdness
                 if(now - touchTimer < 400) return;
                 touchTimer = now;
                 if(body.classList.contains('purple-mode')){
@@ -605,7 +595,7 @@
                 }
             });
 
-            // Optional: keep purple-mode active while any link inside sidzo is focused (keyboard nav)
+            // Keep purple-mode active while a link inside sidzo is focused (keyboard nav)
             sidzoCard.addEventListener('focusin', () => { activatePurpleMode(); });
             sidzoCard.addEventListener('focusout', () => { deactivatePurpleMode(); });
 
