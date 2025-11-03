@@ -3,83 +3,109 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Riko Studios - Game Development</title>
+<title>Riko Studios - Themes: Neutral / Iskra / Sidzo</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-/* -------------------------
-   THEME VARIABLES (RED by default)
-   All accents reference these variables so we can swap theme by toggling body.purple-mode
-   ------------------------- */
+/* ====================================================
+   THEME VARIABLES (all accents reference these)
+   Default (Neutral) values live in :root
+   Body gets .theme-iskra or .theme-sidzo to override
+   ==================================================== */
 :root{
-  --bg-900: #0a0a0a;
-  --bg-800: #1a1a1a;
-  --panel: rgba(25,25,25,0.6);
-  --glass-1: rgba(20,20,20,0.7);
-  --glass-2: rgba(15,15,15,0.8);
+  /* base backgrounds */
+  --bg-900: #0b0b0b;
+  --bg-800: #141414;
+  --panel: rgba(22,22,22,0.55);
+  --glass-1: rgba(24,24,24,0.75);
+  --glass-2: rgba(18,18,18,0.78);
 
-  --text-main: #ffffff;
-  --text-muted: #ccc;
-  --muted: #999;
+  /* neutral palette (gray / white) - default */
+  --accent: #d9d9d9;                 /* headings, highlights */
+  --accent-strong: linear-gradient(135deg, rgba(220,220,220,0.95) 0%, rgba(200,200,200,0.9) 100%);
+  --accent-deep: rgba(200,200,200,0.28);  /* borders/shadows */
+  --accent-glow: rgba(210,210,210,0.14);  /* soft glow */
+  --btn-border: rgba(210,210,210,0.12);
+  --card-border: rgba(120,120,120,0.12);
+  --card-border-strong: rgba(120,120,120,0.18);
+  --shadow-accent: rgba(0,0,0,0.45);
+  --neon-flicker: rgba(220,220,220,0.18);
+  --logo-drop: rgba(220,220,220,0.08);
 
-  /* red theme */
+  --bg-radial-1: rgba(255,255,255,0.02);
+  --bg-radial-2: rgba(255,255,255,0.01);
+}
+
+/* ----------------- ISKRA (RED) -----------------
+   body.theme-iskra overrides variables to red theme
+   includes flicker overlay on activation
+   ------------------------------------------------*/
+body.theme-iskra{
+  --bg-900: #0a0606;
+  --bg-800: #160808;
+  --panel: rgba(22,12,12,0.62);
+  --glass-1: rgba(18,12,12,0.78);
+  --glass-2: rgba(16,10,10,0.85);
+
   --accent: #ff3333;
-  --accent-strong: linear-gradient(135deg, rgba(139,0,0,0.9) 0%, rgba(255,0,0,0.6) 100%);
+  --accent-strong: linear-gradient(135deg, rgba(139,0,0,0.95) 0%, rgba(255,0,0,0.7) 100%);
   --accent-deep: rgba(139,0,0,0.6);
-  --accent-glow: rgba(255,0,0,0.25);
-  --btn-border: rgba(255,0,0,0.3);
-  --card-border: rgba(139,0,0,0.3);
+  --accent-glow: rgba(255,0,0,0.32);
+  --btn-border: rgba(255,0,0,0.28);
+  --card-border: rgba(139,0,0,0.28);
   --card-border-strong: rgba(139,0,0,0.6);
-  --shadow-accent: rgba(139,0,0,0.4);
-  --neon-flicker: rgba(255,68,68,0.6);
+  --shadow-accent: rgba(139,0,0,0.36);
+  --neon-flicker: rgba(255,90,90,0.7);
   --logo-drop: rgba(255,0,0,0.28);
 
   --bg-radial-1: rgba(139,0,0,0.12);
   --bg-radial-2: rgba(255,0,0,0.08);
 }
 
-/* -------------------------
-   PURPLE MODE (Luxury Purple primary, Indigo highlight)
-   ------------------------- */
-body.purple-mode{
-  --bg-900: #060206;
-  --bg-800: #140214;
-  --panel: rgba(18,10,25,0.6);
-  --glass-1: rgba(22,12,28,0.75);
-  --glass-2: rgba(18,8,24,0.85);
+/* ----------------- SIDZO (PURPLE) -----------------
+   body.theme-sidzo sets luxury purple + indigo accents
+   no flicker (clean instant swap)
+   --------------------------------------------------*/
+body.theme-sidzo{
+  --bg-900: #050206;
+  --bg-800: #120114;
+  --panel: rgba(18,10,25,0.62);
+  --glass-1: rgba(20,12,26,0.78);
+  --glass-2: rgba(16,8,22,0.86);
 
-  --accent: #743089; /* Luxury Purple */
-  --accent-strong: linear-gradient(135deg, rgba(75,0,130,0.85) 0%, rgba(116,48,137,0.95) 100%);
-  --accent-deep: rgba(75,0,130,0.6);
+  --accent: #743089; /* luxury purple */
+  --accent-strong: linear-gradient(135deg, rgba(75,0,130,0.86) 0%, rgba(116,48,137,0.96) 100%);
+  --accent-deep: rgba(75,0,130,0.62);
   --accent-glow: rgba(116,48,137,0.34);
-  --btn-border: rgba(116,48,137,0.35);
-  --card-border: rgba(116,48,137,0.28);
-  --card-border-strong: rgba(75,0,130,0.6);
-  --shadow-accent: rgba(75,0,130,0.45);
-  --neon-flicker: rgba(180,120,220,0.7);
-  --logo-drop: rgba(116,48,137,0.33);
+  --btn-border: rgba(116,48,137,0.32);
+  --card-border: rgba(116,48,137,0.24);
+  --card-border-strong: rgba(75,0,130,0.52);
+  --shadow-accent: rgba(75,0,130,0.36);
+  --neon-flicker: rgba(180,120,220,0.42);
+  --logo-drop: rgba(116,48,137,0.28);
 
-  --bg-radial-1: rgba(116,48,137,0.13);
-  --bg-radial-2: rgba(75,0,130,0.08);
+  --bg-radial-1: rgba(116,48,137,0.11);
+  --bg-radial-2: rgba(75,0,130,0.06);
 }
 
-/* -------------------------
-   BASIC RESET / LAYOUT
-   ------------------------- */
+/* ====================================================
+   LAYOUT & STYLES (all use theme variables)
+   Instant color changes: transitions very short or none
+   ==================================================== */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
   font-family:'Roboto Condensed',sans-serif;
   background:var(--bg-900);
-  color:var(--text-main);
+  color: #fff;
   line-height:1.6;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  transition: background 0.28s linear, color 0.2s linear;
+  transition: background 0s linear; /* instant */
 }
 
-/* background radial + gradient uses variables so it also changes */
+/* background uses variables so it changes with theme */
 body::before{
   content:'';
   position:fixed; inset:0; z-index:-1; pointer-events:none;
@@ -87,198 +113,145 @@ body::before{
     radial-gradient(circle at 10% 20%, var(--bg-radial-1) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, var(--bg-radial-2) 0%, transparent 40%),
     linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 50%, var(--bg-900) 100%);
-  transition: background 0.28s linear;
+  transition: background 0s linear;
 }
 
-/* Header */
+/* header */
 header{
-  background:var(--glass-1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--glass-1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   padding:2rem 0 1rem;
   text-align:center;
   border-bottom:1px solid var(--card-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 56px var(--accent-glow);
   position:sticky; top:0; z-index:100;
-  transition: border-color 0.28s linear, box-shadow 0.28s linear, background 0.28s linear;
 }
-
 header img{
   max-width:600px; width:90%; height:auto; display:block; margin:0 auto;
-  filter: drop-shadow(0 0 22px var(--logo-drop));
-  transition: filter 0.28s linear, transform 0.28s;
+  filter: drop-shadow(0 0 20px var(--logo-drop));
 }
-
 .logo-glow{
   width:80%; max-width:500px; height:3px; margin:1.5rem auto 1rem;
-  background: linear-gradient(90deg, transparent 0%, rgba(116,48,137,0.5) 20%, var(--accent) 50%, rgba(116,48,137,0.5) 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(116,48,137,0.45) 20%, var(--accent) 50%, rgba(116,48,137,0.45) 80%, transparent 100%);
   box-shadow: 0 0 20px var(--accent-glow);
-  animation: pulse 3s ease-in-out infinite;
-  transition: background 0.28s linear, box-shadow 0.28s linear;
 }
-@keyframes pulse{0%,100%{opacity:0.6}50%{opacity:1;transform:scaleX(1.02)}}
-header p{font-size:1.05rem;color:var(--muted);font-weight:300;margin-top:0.4rem}
+header p{font-size:1.05rem;color:var(--accent-deep);font-weight:300;margin-top:0.4rem}
 
-/* Nav */
+/* nav */
 nav{
   background:var(--glass-2);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  padding:1.2rem 0; text-align:center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding:1.1rem 0; text-align:center;
   border-bottom:1px solid var(--card-border);
   position:sticky; top:0; z-index:99;
-  transition: background 0.28s linear, border-color 0.28s linear;
 }
 nav a{
-  color:#ccc; text-decoration:none; margin:0 1.4rem;
+  color:#ddd; text-decoration:none; margin:0 1.3rem;
   font-size:1.05rem; font-weight:400; padding:0.6rem 1.2rem; border-radius:8px;
   display:inline-block; text-transform:uppercase; letter-spacing:1px;
-  transition: color 0.18s, transform 0.18s, box-shadow 0.18s;
 }
 nav a:hover{
   color:var(--accent);
   box-shadow: 0 0 20px var(--accent-glow);
-  text-shadow: 0 0 10px var(--neon-flicker);
-  transform:translateY(-2px);
 }
 
-/* Container / Sections */
-.container{ max-width:1200px; margin:0 auto; padding:3rem 2rem; transition:padding 0.2s }
+/* container & sections */
+.container{ max-width:1200px; margin:0 auto; padding:3rem 2rem; }
 section{
   background:var(--panel);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  margin:3rem auto; padding:2.5rem; border-radius:20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  margin:3rem auto; padding:2.2rem; border-radius:18px;
   border:1px solid var(--card-border);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(0,0,0,0.03);
-  animation: slideUp 0.6s ease-out;
-  transition: border-color 0.28s linear, box-shadow 0.28s linear, background 0.28s linear;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.45);
 }
-@keyframes slideUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:none}}
-section h2{
-  color:var(--accent); font-size:2.3rem; margin-bottom:1rem; font-weight:700;
-  text-shadow: 0 0 20px var(--accent-glow); letter-spacing:2px; text-transform:uppercase;
-  transition: color 0.18s, text-shadow 0.18s;
-}
-section p { color:var(--text-muted); transition: color 0.18s; }
+section h2{ color:var(--accent); font-size:2.3rem; margin-bottom:1rem; font-weight:700; }
+section p{ color: rgba(255,255,255,0.86) }
 
-/* Cards / Games Grid */
-.games-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap:2rem; margin-top:1.8rem }
+/* games grid */
+.games-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.8rem; margin-top:1.6rem }
 .game-card{
-  background:var(--glass-2); padding:1.8rem; border-radius:14px;
-  border:1px solid rgba(80,80,80,0.25); box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  background:var(--glass-2); padding:1.6rem; border-radius:12px;
+  border:1px solid rgba(80,80,80,0.12); box-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
-.game-card:hover{
-  transform:translateY(-8px);
-  box-shadow: 0 12px 38px var(--shadow-accent), 0 0 30px var(--accent-glow);
-  border-color:var(--card-border-strong);
-}
-.game-card h3{ color:var(--accent); font-size:1.3rem; margin-bottom:0.6rem; text-shadow: 0 0 10px var(--accent-glow) }
+.game-card h3{ color:var(--accent); margin-bottom:0.6rem }
+.game-card:hover{ transform:translateY(-6px); box-shadow: 0 14px 36px var(--shadow-accent); border-color:var(--card-border-strong) }
 
-/* Team grid */
-.team-grid{ display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:2.2rem; margin-top:1.8rem }
+/* team grid */
+.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.6rem; margin-top:1.6rem }
 .team-member{
-  background:var(--glass-2); padding:1.8rem; border-radius:12px; display:flex; gap:1.3rem; align-items:flex-start;
-  border:1px solid rgba(80,80,80,0.25);
-  transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+  background:var(--glass-2); padding:1.6rem; border-radius:12px; display:flex; gap:1rem; align-items:flex-start;
+  border:1px solid rgba(80,80,80,0.12); cursor:pointer;
+  user-select:none;
 }
-.team-member:hover{
-  transform:translateY(-6px); box-shadow: 0 10px 30px var(--shadow-accent); border-color:var(--card-border-strong)
-}
-.team-member img{
-  width:120px; height:120px; border-radius:12px; object-fit:cover;
-  border:2px solid var(--card-border-strong); box-shadow: 0 0 20px var(--accent-glow);
-  transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s;
-}
-.team-info h3{ color:var(--accent); font-size:1.45rem; margin-bottom:0.2rem }
-.team-info .pronouns{ color: #999; font-size:0.9rem; margin-bottom:0.8rem }
-.team-info .bio{ color:var(--text-muted); line-height:1.6 }
+.team-member:focus{ outline: 2px solid rgba(255,255,255,0.04); outline-offset:2px }
+.team-member img{ width:110px; height:110px; border-radius:12px; object-fit:cover; border:2px solid var(--card-border-strong); box-shadow:0 0 18px var(--accent-glow) }
+.team-info h3{ color:var(--accent); margin-bottom:0.2rem }
+.team-info .pronouns{ color: #bdbdbd; margin-bottom:0.6rem }
 
-/* tags, buttons, links */
-.team-tags, .game-tags{ display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.9rem }
-.team-tag, .game-tag{ background:#000; color:#fff; padding:0.4rem 0.9rem; border-radius:999px; font-size:0.85rem }
-.team-links{ display:flex; gap:1rem; margin-top:0.8rem; flex-wrap:wrap }
-.team-link{ color:var(--text-muted); text-decoration:underline; transition: color 0.18s; }
-.team-link:hover{ color:var(--accent); filter:drop-shadow(0 0 8px var(--accent)) }
-
+/* tags, links, buttons */
+.team-tags, .game-tags{ display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.8rem }
+.team-tag, .game-tag{ background:#000; color:#fff; padding:0.36rem 0.8rem; border-radius:999px; font-size:0.82rem }
+.team-link{ color:rgba(255,255,255,0.85); text-decoration:none }
 .btn{
-  display:inline-block; padding:0.85rem 2.2rem; border-radius:30px; font-weight:700; text-transform:uppercase;
-  background: var(--accent-strong); color:#fff; text-decoration:none; box-shadow: 0 6px 20px var(--shadow-accent);
-  border:1px solid var(--btn-border); transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+  display:inline-block; padding:0.75rem 2rem; border-radius:999px; font-weight:700; text-transform:uppercase;
+  background:var(--accent-strong); color:#fff; border:1px solid var(--btn-border);
 }
-.btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px var(--accent-glow) }
+.btn-locked{ background: linear-gradient(135deg, rgba(40,40,40,0.86), rgba(60,60,60,0.68)); color:#999 }
 
-.btn-locked{ background: linear-gradient(135deg, rgba(40,40,40,0.85), rgba(60,60,60,0.68)); color:#666; border:1px solid rgba(80,80,80,0.3) }
+/* socials/footer */
+.social-links{ display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap }
+.social-link{ background:var(--glass-2); padding:0.8rem 1.1rem; border-radius:10px; color:rgba(255,255,255,0.9); text-decoration:none }
 
-/* social links, footer */
-.social-links{ display:flex; gap:1.4rem; margin-top:1.5rem; flex-wrap:wrap }
-.social-link{
-  background:var(--glass-2); padding:0.9rem 1.2rem; border-radius:10px; border:1px solid rgba(80,80,80,0.25);
-  text-decoration:none; color:var(--text-muted); display:inline-flex; gap:0.5rem; align-items:center;
-  transition: box-shadow 0.18s, color 0.18s;
+/* =====================================================
+   ISKRA FLICKER / GLITCH (played ONLY when entering Iskra)
+   - overlay + per-element brief flicker to emphasize change
+   - does not run on Sidzo
+   ===================================================== */
+@keyframes iskraFlickerOverlay {
+  0% { opacity:0; transform:scale(1) }
+  6% { opacity:0.18; transform:scale(1.02) }
+  12% { opacity:0.04; transform:scale(0.99) }
+  22% { opacity:0.22; transform:scale(1.015) }
+  38% { opacity:0.08; transform:scale(1) }
+  60% { opacity:0.18; transform:scale(1.01) }
+  100% { opacity:0; transform:scale(1) }
 }
-.social-link:hover{ color:var(--accent); box-shadow: 0 0 20px var(--accent-glow) }
-
-footer{ background: rgba(10,10,10,0.9); padding:2.2rem; text-align:center; border-top:1px solid var(--card-border); color:#888 }
-
-/* -------------------------
-   SNAPPY FLICKER + ELECTRIC PULSE ANIMATIONS
-   ------------------------- */
-@keyframes neonFlicker {
-  0%   { filter: brightness(1); text-shadow: none }
-  10%  { filter: brightness(1.15); text-shadow: 0 0 18px var(--neon-flicker) }
-  25%  { filter: brightness(1.4); text-shadow: 0 0 40px var(--neon-flicker) }
-  50%  { filter: brightness(1.05); text-shadow: 0 0 12px var(--neon-flicker) }
-  75%  { filter: brightness(1.25); text-shadow: 0 0 30px var(--neon-flicker) }
-  100% { filter: brightness(1); text-shadow: none }
-}
-@keyframes electricPulse {
-  0% { box-shadow: none; transform: translateY(0) }
-  30% { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-3px) scale(1.01) }
-  60% { box-shadow: 0 0 50px var(--accent-glow); transform: translateY(-6px) scale(1.015) }
-  100% { box-shadow: 0 0 12px var(--accent-glow); transform: translateY(0) }
-}
-
-/* helper classes for applying flicker briefly */
-.flicker-glow { animation: neonFlicker 380ms linear both; }
-body.flicker-strong::after{
+/* overlay applied to body as pseudo element when .flicker-iskra is present */
+body.flicker-iskra::after{
   content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
-  mix-blend-mode: screen; animation: neonFlicker 380ms linear;
+  background: linear-gradient(90deg, rgba(255,0,0,0.04), rgba(255,255,255,0.02));
+  mix-blend-mode: screen;
+  animation: iskraFlickerOverlay 420ms linear forwards;
 }
 
-/* apply electricPulse to some elements when purple-mode is active to make it pop */
-body.purple-mode .btn,
-body.purple-mode header img,
-body.purple-mode section h2,
-body.purple-mode .team-info h3,
-body.purple-mode nav a:hover,
-body.purple-mode .team-member:hover {
-  animation: electricPulse 380ms cubic-bezier(.2,.9,.2,1);
+/* per-element quick glows for Iskra activation */
+.iskra-flicker { animation: iskraElementFlicker 420ms linear both; }
+@keyframes iskraElementFlicker {
+  0% { filter:brightness(1); text-shadow:none; transform:none }
+  20% { filter:brightness(1.25); text-shadow: 0 0 18px var(--neon-flicker); transform:translateY(-2px) }
+  45% { filter:brightness(1.5); text-shadow: 0 0 36px var(--neon-flicker); transform:translateY(-4px) }
+  70% { filter:brightness(1.12); text-shadow: 0 0 20px var(--neon-flicker); transform:translateY(-2px) }
+  100% { filter:brightness(1); text-shadow:none; transform:none }
 }
 
-/* quick transitions for snappy feel */
-a, .btn, .team-link, .team-member img, header, nav, section, .game-card, .social-link {
-  transition-duration: 0.28s;
-  transition-timing-function: cubic-bezier(.2,.9,.2,1);
-}
+/* quick instant feel (no slow fades) */
+* { transition-duration: 0s !important; transition-property: none !important; }
 
-/* accessibility */
-a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset:2px }
-
-/* responsive */
+/* responsive tweaks */
 @media (max-width:768px){
   .container{ padding:2rem 1rem }
-  nav a{ display:block; margin:0.5rem auto; max-width:220px }
   .games-grid{ grid-template-columns:1fr }
   .team-grid{ grid-template-columns:1fr }
   .team-member{ flex-direction:column; align-items:center; text-align:center }
+  .team-member img{ margin-bottom:0.6rem }
   .social-links{ flex-direction:column }
 }
 </style>
 </head>
-<body>
+<body class="theme-neutral">
 
 <header>
   <img src="Riko_Studios.png" alt="Riko Studios Logo">
@@ -293,14 +266,13 @@ a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06
   <a href="#contact">Contact</a>
 </nav>
 
-<main class="container">
+<main class="container" id="page-root">
   <section id="about">
     <h2>About Us</h2>
     <p>
-      Welcome to Riko Studios! It’s just the two of us, me and Sidzo stumbling our way through the indie game dev world.
-      We hope you enjoy our… well, projects. To be honest, we don’t have any fully working games just yet. But I’m revisiting the idea of creating a demo for my game, Afterhours.
+      Welcome to Riko Studios — a tiny indie duo building stuff. We ship demos when they work.
     </p>
-    <p style="margin-top:1rem;color:var(--text-muted)">Founded in 2024, By IskraLabs. (That's kinda it...)</p>
+    <p style="margin-top:1rem;color:rgba(255,255,255,0.86)">Founded in 2024, By IskraLabs.</p>
   </section>
 
   <section id="games">
@@ -308,23 +280,15 @@ a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06
     <div class="games-grid">
       <div class="game-card">
         <h3>MozarixOS</h3>
-        <p>OS simulator, doesn't really do anything... (This isnt an actuall game its just a thing to test my skills)</p>
+        <p>OS simulator / skill test.</p>
         <div class="game-tags"><span class="game-tag">#simulator</span><span class="game-tag">#test</span></div>
         <a class="btn" href="https://iskralabs.itch.io/mozarixos" target="_blank" rel="noopener">Learn More</a>
       </div>
-
       <div class="game-card">
         <h3>Site-401</h3>
-        <p>SCP-ish project — also a skill test</p>
-        <div class="game-tags"><span class="game-tag">#horror</span><span class="game-tag">#simulator</span></div>
+        <p>SCP-ish project / skill test.</p>
+        <div class="game-tags"><span class="game-tag">#horror</span></div>
         <a class="btn" href="https://iskralabs.itch.io/site-401" target="_blank" rel="noopener">Learn More</a>
-      </div>
-
-      <div class="game-card">
-        <h3>After Hours (In dev)</h3>
-        <p>Horror. Secure the school and prevent anything from getting in/out. Demo coming eventually.</p>
-        <div class="game-tags"><span class="game-tag">#horror</span><span class="game-tag">#singleplayer</span></div>
-        <span class="btn btn-locked">In Dev</span>
       </div>
     </div>
   </section>
@@ -332,12 +296,13 @@ a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06
   <section id="team">
     <h2>Our Team</h2>
     <div class="team-grid">
-      <div class="team-member">
-        <img src="team_member1.png" alt="IskraLabs avatar">
+      <!-- ISKRA (red, click toggles Iskra mode + flicker) -->
+      <div class="team-member iskra" role="button" tabindex="0" aria-pressed="false" data-person="iskra">
+        <img src="team_member1.png" alt="Iskra avatar">
         <div class="team-info">
           <h3>IskraLabs</h3>
           <div class="pronouns">he/him</div>
-          <div class="bio">Lead developer and founder of Riko Studios. Trying my best...</div>
+          <div class="bio">Lead developer and founder. Brings the chaos.</div>
           <div class="team-tags"><span class="team-tag">#maincoder</span><span class="team-tag">#3dmodeler</span></div>
           <div class="team-links">
             <a class="team-link" href="https://iskralabs.itch.io/" target="_blank" rel="noopener">Itch.io</a>
@@ -346,37 +311,31 @@ a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06
         </div>
       </div>
 
-      <!-- IMPORTANT: .sidzo class here triggers the full theme morph -->
-      <div class="team-member sidzo" aria-label="Sidzo team card" tabindex="0">
+      <!-- SIDZO (purple, click toggles Sidzo mode - clean, no flicker) -->
+      <div class="team-member sidzo" role="button" tabindex="0" aria-pressed="false" data-person="sidzo">
         <img src="team_member2.png" alt="Sidzo avatar">
         <div class="team-info">
           <h3>Sidźo</h3>
           <div class="pronouns">crois/sant</div>
           <div class="bio">"Imagine a cool bio"</div>
-          <div class="team-tags"><span class="team-tag">#bigbrainguy</span><span class="team-tag">#3dmodeler</span><span class="team-tag">#scripter</span></div>
+          <div class="team-tags"><span class="team-tag">#bigbrainguy</span><span class="team-tag">#scripter</span></div>
           <div class="team-links">
             <a class="team-link" href="https://www.youtube.com/@yepsidzo" target="_blank" rel="noopener">YouTube</a>
             <a class="team-link" href="https://sidzo.itch.io" target="_blank" rel="noopener">Itch.io</a>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
   <section id="contact">
     <h2>Socials</h2>
-    <p>Wanna talk? or something... here are our links!</p>
-
-    <h3 style="color:var(--accent); margin-top:1.6rem; font-size:1.05rem">Social Links</h3>
+    <p>Wanna talk? Here are our links.</p>
     <div class="social-links">
       <a class="social-link" href="mailto:marqueraft@gmail.com">📧 Email</a>
       <a class="social-link" href="https://x.com/IskraNiemi41687" target="_blank" rel="noopener">🐦 X</a>
       <a class="social-link" href="https://discord.gg/EwmAnbVa8G" target="_blank" rel="noopener">💬 Discord</a>
     </div>
-
-    <h3 style="color:var(--accent); margin-top:1.6rem; font-size:1.05rem">Random Info</h3>
-    <p style="margin-top:0.6rem; color:var(--text-muted)">Founded: 2024<br>Based: Poland<br>Platform: PC<br>Status: Restarting Development</p>
   </section>
 </main>
 
@@ -386,90 +345,111 @@ a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06
 </footer>
 
 <script>
-// Smooth scroll for nav links + subtle nav highlight
-document.querySelectorAll('nav a').forEach(link=>{
-  link.addEventListener('click', function(e){
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if(!target) return;
-    target.scrollIntoView({behavior:'smooth', block:'start'});
-    target.style.boxShadow = '0 0 40px var(--accent-glow)';
-    setTimeout(()=> target.style.boxShadow = '', 600);
-    history.pushState(null,'',this.getAttribute('href'));
-  });
-});
-
-// THEME TOGGLE: snappy cyberpunk flicker that toggles body.purple-mode when hovering/touching/focusing Sidzo card
+/*
+  Theme behavior:
+  - Default (neutral): no theme class (body uses :root variables)
+  - Click Iskra -> toggle body.theme-iskra (and play flicker overlay)
+  - Click Sidzo -> toggle body.theme-sidzo (no flicker)
+  - Click outside team-member -> remove any theme classes (neutral)
+  - Clicking the same person toggles back to neutral
+  - Keyboard accessible: Enter / Space toggles
+*/
 (function(){
-  const sidzo = document.querySelector('.team-member.sidzo');
   const body = document.body;
-  if(!sidzo) return;
+  const iskraEl = document.querySelector('.team-member.iskra');
+  const sidzoEl = document.querySelector('.team-member.sidzo');
+  const pageRoot = document.getElementById('page-root');
 
-  let leaveTimer = null;
-  let touchTimer = 0;
+  if(!iskraEl || !sidzoEl || !pageRoot) return;
 
-  function addFlickerToElements(){
-    const els = document.querySelectorAll('header img, .btn, section h2, .team-info h3, .team-member, nav a');
+  // Helpers
+  function setNeutral(){
+    body.classList.remove('theme-iskra','theme-sidzo');
+    body.classList.remove('flicker-iskra'); // ensure no overlay
+    // update aria states
+    iskraEl.setAttribute('aria-pressed','false');
+    sidzoEl.setAttribute('aria-pressed','false');
+  }
+
+  function setIskra(){
+    // If already iskra, toggle off
+    if(body.classList.contains('theme-iskra')){
+      setNeutral();
+      return;
+    }
+    // switch to iskra; remove sidzo if present
+    body.classList.remove('theme-sidzo');
+    body.classList.add('theme-iskra');
+    // add flicker overlay + per-element flicker class
+    body.classList.add('flicker-iskra');
+    addIskraElementFlicker();
+    // remove overlay class after animation finishes
+    setTimeout(()=> body.classList.remove('flicker-iskra'), 480);
+    // update aria
+    iskraEl.setAttribute('aria-pressed','true');
+    sidzoEl.setAttribute('aria-pressed','false');
+  }
+
+  function setSidzo(){
+    // If already sidzo, toggle off
+    if(body.classList.contains('theme-sidzo')){
+      setNeutral();
+      return;
+    }
+    body.classList.remove('theme-iskra');
+    body.classList.add('theme-sidzo');
+    // ensure no iskra flicker lingering
+    body.classList.remove('flicker-iskra');
+    // update aria
+    sidzoEl.setAttribute('aria-pressed','true');
+    iskraEl.setAttribute('aria-pressed','false');
+  }
+
+  // Add quick flicker class to a set of elements to emphasize Iskra activation
+  function addIskraElementFlicker(){
+    const els = document.querySelectorAll('header img, header .logo-glow, .btn, section h2, .team-info h3, .team-member, nav a');
     els.forEach(el=>{
-      el.classList.add('flicker-glow');
-      // remove after animation finishes
-      setTimeout(()=> el.classList.remove('flicker-glow'), 420);
+      // Add flicker class which runs a short 420ms keyframe
+      el.classList.add('iskra-flicker');
+      // clean up after animation
+      setTimeout(()=> el.classList.remove('iskra-flicker'), 440);
     });
   }
 
-  function activate(){
-    if(body.classList.contains('purple-mode')){
-      // already purple; retrigger a strong flash
-      body.classList.add('flicker-strong');
-      requestAnimationFrame(()=> setTimeout(()=> body.classList.remove('flicker-strong'), 420));
-      addFlickerToElements();
-      return;
-    }
-    body.classList.add('purple-mode','flicker-strong');
-    // quick overlay flicker removal
-    setTimeout(()=> body.classList.remove('flicker-strong'), 420);
-    addFlickerToElements();
-  }
-
-  function deactivate(){
-    body.classList.add('flicker-strong');
-    setTimeout(()=> body.classList.remove('flicker-strong'), 420);
-    addFlickerToElements();
-    // small delay so flicker is visible then revert
-    setTimeout(()=> body.classList.remove('purple-mode'), 90);
-  }
-
-  // mouse events
-  sidzo.addEventListener('mouseenter', ()=>{
-    if(leaveTimer){ clearTimeout(leaveTimer); leaveTimer = null; }
-    activate();
+  // Click handlers (use capture to ensure we get clicks)
+  iskraEl.addEventListener('click', (e)=> {
+    e.stopPropagation();
+    setIskra();
   });
-  sidzo.addEventListener('mouseleave', ()=>{
-    if(leaveTimer) clearTimeout(leaveTimer);
-    leaveTimer = setTimeout(()=> deactivate(), 120);
+  sidzoEl.addEventListener('click', (e)=> {
+    e.stopPropagation();
+    setSidzo();
   });
 
-  // touch: toggle on tap for mobile
-  sidzo.addEventListener('touchstart', (e)=>{
-    const now = Date.now();
-    if(now - touchTimer < 400) return;
-    touchTimer = now;
-    if(body.classList.contains('purple-mode')) deactivate();
-    else activate();
-  }, {passive:true});
-
-  // keyboard accessibility: space/enter toggles
-  sidzo.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' '){
-      e.preventDefault();
-      if(body.classList.contains('purple-mode')) deactivate();
-      else activate();
-    }
+  // Keyboard (Enter / Space) toggles
+  [iskraEl, sidzoEl].forEach(el=>{
+    el.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        el.classList.contains('iskra') ? setIskra() : setSidzo();
+      }
+    });
   });
 
-  // focus in/out to support keyboard navigation
-  sidzo.addEventListener('focusin', ()=> activate());
-  sidzo.addEventListener('focusout', ()=> deactivate());
+  // Clicking anywhere outside team-member resets to neutral
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('.team-member')) return; // click inside a card - ignore (handled above)
+    setNeutral();
+  });
+
+  // If user taps outside on mobile, same behavior (touchend)
+  document.addEventListener('touchend', (e)=>{
+    if(e.target.closest('.team-member')) return;
+    setNeutral();
+  }, { passive: true });
+
+  // Initialize neutral on load
+  setNeutral();
 })();
 </script>
 </body>
