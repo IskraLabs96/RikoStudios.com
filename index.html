@@ -1,444 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Riko Studios - Game Development</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* === THEME VARIABLES (default = RED THEME) === */
+        :root{
+            --bg-900: #0a0a0a;
+            --bg-800: #1a1a1a;
+            --panel: rgba(25,25,25,0.6);
+            --glass-1: rgba(20,20,20,0.7);
+            --glass-2: rgba(15,15,15,0.8);
+            --muted: #999;
+            --text-main: #ffffff;
+            --text-muted: #ccc;
+            --accent: #ff3333;                 /* primary accent (text, headings) */
+            --accent-strong: rgba(255,0,0,0.8);/* used in gradients */
+            --accent-deep: rgba(139,0,0,0.6);  /* deep red used in borders & shadows */
+            --accent-glow: rgba(255,0,0,0.3);  /* soft glow */
+            --btn-border: rgba(255,0,0,0.3);
+            --card-border: rgba(139,0,0,0.3);
+            --card-border-strong: rgba(139,0,0,0.6);
+            --shadow-accent: rgba(139,0,0,0.4);
+            --neon-flicker: rgba(255,68,68,0.6);
+            --logo-drop: rgba(255,0,0,0.3);
         }
 
+        /* === PURPLE MODE OVERRIDES (Luxury Purple dominant, Indigo highlight) === */
+        body.purple-mode {
+            --accent: #743089;                 /* Luxury Purple primary */
+            --accent-strong: rgba(116,48,137,0.95);
+            --accent-deep: rgba(75,0,130,0.6); /* Indigo-ish deeper accent */
+            --accent-glow: rgba(116,48,137,0.35);
+            --btn-border: rgba(116,48,137,0.35);
+            --card-border: rgba(116,48,137,0.28);
+            --card-border-strong: rgba(75,0,130,0.6);
+            --shadow-accent: rgba(75,0,130,0.45);
+            --neon-flicker: rgba(180,120,220,0.7);
+            --logo-drop: rgba(116,48,137,0.35);
+            --bg-900: #060206; /* slightly deeper background to feel purple */
+            --bg-800: #140214;
+            --panel: rgba(18,10,25,0.6);
+        }
+
+        /* === GENERIC RESET / LAYOUT === */
+        *{ margin:0; padding:0; box-sizing:border-box; }
+        html,body{ height:100%; }
         body {
             font-family: 'Roboto Condensed', sans-serif;
-            background: #0a0a0a;
-            color: #ffffff;
-            line-height: 1.6;
+            background: var(--bg-900);
+            color: var(--text-main);
+            line-height:1.6;
             overflow-x: hidden;
+            transition: background 0.35s linear, color 0.2s linear;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
 
-        body::before {
+        /* background subtle layered */
+        body::before{
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
-                linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            pointer-events: none;
-            z-index: -1;
+            inset:0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(139,0,0,0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255,0,0,0.08) 0%, transparent 40%),
+                linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 50%, var(--bg-900) 100%);
+            pointer-events:none;
+            z-index:-1;
+            transition: background 0.35s linear;
         }
 
-        header {
-            background: rgba(20, 20, 20, 0.7);
+        /* ease switching background when in purple-mode */
+        body.purple-mode::before{
+            background:
+                radial-gradient(circle at 10% 20%, rgba(116,48,137,0.13) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(75,0,130,0.08) 0%, transparent 40%),
+                linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 50%, var(--bg-900) 100%);
+        }
+
+        header{
+            background: var(--glass-1);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: 2rem 0 1rem 0;
-            text-align: center;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
-                        0 0 60px rgba(139, 0, 0, 0.1);
+            padding: 2rem 0 1rem;
+            text-align:center;
+            border-bottom: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5),
+                        0 0 60px var(--accent-glow);
             position: sticky;
-            top: 0;
-            z-index: 100;
+            top:0;
+            z-index:100;
+            transition: border-color 0.35s linear, box-shadow 0.35s linear, background 0.35s linear;
         }
 
-        header img {
-            max-width: 600px;
-            width: 90%;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.3));
-            animation: fadeIn 1s ease-in;
+        header img{
+            max-width:600px; width:90%; height:auto; margin:0 auto; display:block;
+            filter: drop-shadow(0 0 20px var(--logo-drop));
+            animation: fadeIn 0.9s ease-in;
+            transition: filter 0.35s linear;
         }
 
-        .logo-glow {
-            width: 80%;
-            max-width: 500px;
-            height: 3px;
-            margin: 1.5rem auto 1rem auto;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(139, 0, 0, 0.5) 20%, 
-                rgba(255, 0, 0, 0.8) 50%, 
-                rgba(139, 0, 0, 0.5) 80%, 
+        .logo-glow{
+            width:80%; max-width:500px; height:3px; margin: 1.5rem auto 1rem;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(116,48,137,0.5) 20%,
+                var(--accent-strong) 50%,
+                rgba(116,48,137,0.5) 80%,
                 transparent 100%);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 20px var(--accent-glow);
             animation: pulse 3s ease-in-out infinite;
+            transition: background 0.35s linear, box-shadow 0.35s linear;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            0%,100% { opacity:0.6; }
+            50% { opacity:1; transform: scaleX(1.02); }
         }
 
-        header p {
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-            color: #999;
-            font-weight: 300;
-        }
+        header p{ font-size:1.1rem; margin-top:0.5rem; color:var(--muted); font-weight:300; transition: color 0.35s linear; }
 
-        nav {
-            background: rgba(15, 15, 15, 0.8);
+        nav{
+            background: var(--glass-2);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 1.2rem 0;
-            text-align: center;
-            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            padding:1.2rem 0;
+            text-align:center;
+            border-bottom: 1px solid var(--card-border);
             position: sticky;
-            top: 0;
-            z-index: 99;
+            top:0;
+            z-index:99;
+            transition: background 0.35s linear, border-color 0.35s linear;
         }
 
-        nav a {
-            color: #ccc;
-            text-decoration: none;
-            margin: 0 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 400;
-            transition: all 0.3s;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        nav a{
+            color: #ccc; text-decoration:none; margin:0 1.5rem;
+            font-size:1.1rem; font-weight:400; transition: all 0.25s;
+            padding:0.7rem 1.5rem; border-radius:8px; display:inline-block;
+            text-transform:uppercase; letter-spacing:1px;
         }
 
-        nav a:hover {
-            color: #ff3333;
-            background: rgba(139, 0, 0, 0.2);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        nav a:hover{
+            color: var(--accent);
+            background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.1));
+            box-shadow: 0 0 20px var(--accent-glow);
+            text-shadow: 0 0 10px var(--neon-flicker);
+            transform: translateY(-2px);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
+        .container{ max-width:1200px; margin:0 auto; padding:3rem 2rem; transition: padding 0.2s; }
 
-        section {
-            background: rgba(25, 25, 25, 0.6);
+        section{
+            background: var(--panel);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            margin: 3rem auto;
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(139, 0, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-                        inset 0 0 60px rgba(255, 0, 0, 0.03);
+            margin: 3rem auto; padding:2.5rem; border-radius:20px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(255,0,0,0.03);
             animation: slideUp 0.8s ease-out;
-            scroll-margin-top: 100px;
+            scroll-margin-top:100px;
+            transition: border-color 0.35s linear, box-shadow 0.35s linear, background 0.35s linear;
         }
 
-        section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: #ff3333;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* update inset when purple-mode toggled */
+        body.purple-mode section{
+            box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 0 60px rgba(116,48,137,0.03);
         }
 
-        section p {
-            color: #ccc;
+        section h2{
+            font-size:2.5rem; margin-bottom:1.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent-glow);
+            font-weight:700; letter-spacing:2px; text-transform:uppercase;
+            transition: color 0.25s linear, text-shadow 0.25s linear;
         }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        section p { color: var(--text-muted); transition: color 0.25s linear; }
+
+        .games-grid{
+            display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+            gap:2rem; margin-top:2rem;
         }
 
-        .game-card {
-            background: rgba(15, 15, 15, 0.8);
+        .game-card{
+            background: var(--glass-2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            transition: all 0.4s;
-            border: 1px solid rgba(80, 80, 80, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            padding:2rem; border-radius:15px; transition: all 0.25s;
+            border: 1px solid rgba(80,80,80,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        .game-card:hover {
+        .game-card:hover{
             transform: translateY(-10px);
-            box-shadow: 0 12px 40px rgba(139, 0, 0, 0.4),
-                        0 0 30px rgba(255, 0, 0, 0.2);
-            border-color: rgba(139, 0, 0, 0.6);
+            box-shadow: 0 12px 40px var(--shadow-accent), 0 0 30px var(--accent-glow);
+            border-color: var(--card-border-strong);
         }
 
-        .game-card h3 {
-            color: #ff4444;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-        }
+        .game-card h3{ color: var(--accent); margin-bottom:1rem; font-size:1.5rem; text-shadow: 0 0 10px var(--accent-glow); }
+        .game-card p{ color: #aaa; }
 
-        .game-card p {
-            color: #aaa;
-        }
+        .game-tags{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem; }
+        .game-tag{ background:#000; color:#fff; padding:0.4rem 0.9rem; border-radius:15px; font-size:0.85rem; font-weight:400; }
 
-        .game-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
+        .team-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:2.5rem; margin-top:2rem; }
 
-        .game-tag {
-            background: #000;
-            color: #fff;
-            padding: 0.4rem 0.9rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 400;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2rem;
-        }
-
-        .team-member {
-            background: rgba(15, 15, 15, 0.8);
+        .team-member{
+            background: var(--glass-2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(80, 80, 80, 0.3);
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            transition: all 0.4s;
+            padding:2rem; border-radius:15px; border: 1px solid rgba(80,80,80,0.3);
+            display:flex; gap:1.5rem; align-items:flex-start; transition: all 0.25s;
         }
 
-        .team-member:hover {
-            border-color: rgba(139, 0, 0, 0.6);
-            box-shadow: 0 8px 30px rgba(139, 0, 0, 0.3);
+        .team-member:hover{
+            border-color: var(--card-border-strong);
+            box-shadow: 0 8px 30px var(--shadow-accent);
+            transform: translateY(-6px);
         }
 
-        .team-member img {
-            width: 120px;
-            height: 120px;
-            border-radius: 15px;
-            object-fit: cover;
-            border: 2px solid rgba(139, 0, 0, 0.4);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-            flex-shrink: 0;
+        .team-member img{
+            width:120px; height:120px; border-radius:15px; object-fit:cover;
+            border: 2px solid var(--card-border-strong);
+            box-shadow: 0 0 20px var(--accent-glow); flex-shrink:0;
+            transition: border-color 0.25s linear, box-shadow 0.25s linear, transform 0.25s;
         }
 
-        .team-info {
-            flex: 1;
+        .team-info{ flex:1; transition: color 0.25s; }
+        .team-info h3{ color: var(--accent); font-size:1.6rem; margin-bottom:0.3rem; font-weight:700; transition: color 0.25s; }
+        .team-info .pronouns{ color: #999; font-size:0.9rem; margin-bottom:1rem; font-weight:300; }
+        .team-info .bio{ color: var(--text-muted); line-height:1.6; }
+
+        .team-tags{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.8rem; }
+        .team-tag{ background:#000; color:#fff; padding:0.4rem 0.9rem; border-radius:15px; font-size:0.85rem; font-weight:400; }
+
+        .team-links{ display:flex; gap:1rem; margin-top:0.8rem; flex-wrap:wrap; }
+        .team-link{ transition: all 0.25s; opacity:0.85; color:var(--text-muted); text-decoration:none; padding:0.1rem 0.2rem; }
+        .team-link:hover{ opacity:1; filter: drop-shadow(0 0 8px var(--accent)); transform: translateY(-2px); color:var(--accent); }
+
+        .btn{
+            display:inline-block;
+            background: linear-gradient(135deg, var(--accent-deep) 0%, var(--accent-strong) 100%);
+            color: white; padding:0.9rem 2.5rem; border-radius:30px; text-decoration:none;
+            font-weight:700; margin-top:1rem; transition: all 0.25s;
+            box-shadow: 0 4px 20px var(--shadow-accent);
+            border: 1px solid var(--btn-border);
+            text-transform:uppercase; letter-spacing:1px;
         }
 
-        .team-info h3 {
-            color: #ff4444;
-            font-size: 1.6rem;
-            margin-bottom: 0.3rem;
-            font-weight: 700;
-        }
-
-        .team-info .pronouns {
-            color: #999;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-        }
-
-        .team-info .bio {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .team-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-        }
-
-        .team-tag {
-            background: #000;
-            color: #fff;
-            padding: 0.4rem 0.9rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            font-weight: 400;
-        }
-
-        .team-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .team-link {
-            transition: all 0.3s;
-            opacity: 0.8;
-        }
-
-        .team-link:hover {
-            opacity: 1;
-            filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.6));
+        .btn:hover{
+            background: linear-gradient(135deg, var(--accent-strong) 0%, var(--accent-deep) 100%);
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow), 0 0 40px var(--accent-glow);
         }
 
-        .team-link img {
-            width: 32px;
-            height: 32px;
-            display: block;
+        .btn-locked{
+            background: linear-gradient(135deg, rgba(40,40,40,0.8) 0%, rgba(60,60,60,0.6) 100%);
+            color: #666; cursor:not-allowed; border: 1px solid rgba(80,80,80,0.3);
         }
 
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.6) 100%);
-            color: white;
-            padding: 0.9rem 2.5rem;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .social-links{ display:flex; gap:1.5rem; margin-top:1.5rem; flex-wrap:wrap; }
+        .social-link{
+            background: var(--glass-2); backdrop-filter: blur(10px); padding:1rem 1.5rem; border-radius:10px;
+            border:1px solid rgba(80,80,80,0.3); color:var(--text-muted); text-decoration:none; transition: all 0.25s;
+            display:flex; align-items:center; gap:0.5rem;
+        }
+        .social-link:hover{ border-color: var(--card-border-strong); color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+
+        footer{
+            background: rgba(10,10,10,0.9); backdrop-filter: blur(15px); text-align:center; padding:2.5rem; margin-top:4rem;
+            border-top: 1px solid var(--card-border); color:#666; transition: border-color 0.25s;
+        }
+        footer p{ margin:0.5rem 0; }
+
+        /* === ANIMATIONS: SNAPPY FLICKER + NEON PULSE === */
+        @keyframes neonFlicker {
+            0%   { text-shadow: 0 0 0 rgba(0,0,0,0); filter: brightness(1); }
+            10%  { text-shadow: 0 0 20px var(--neon-flicker); filter: brightness(1.2); }
+            20%  { text-shadow: 0 0 40px var(--neon-flicker); filter: brightness(1.4); }
+            30%  { text-shadow: 0 0 10px var(--neon-flicker); filter: brightness(1.05); }
+            45%  { text-shadow: 0 0 30px var(--neon-flicker); filter: brightness(1.25); }
+            60%  { text-shadow: 0 0 40px var(--neon-flicker); filter: brightness(1.5); }
+            100% { text-shadow: 0 0 12px var(--neon-flicker); filter: brightness(1); }
         }
 
-        .btn:hover {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5),
-                        0 0 40px rgba(255, 0, 0, 0.3);
+        @keyframes electricPulse {
+            0% { box-shadow: 0 0 0 rgba(0,0,0,0); transform: translateY(0); }
+            30% { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-3px) scale(1.01); }
+            60% { box-shadow: 0 0 50px var(--accent-glow); transform: translateY(-6px) scale(1.015); }
+            100% { box-shadow: 0 0 12px var(--accent-glow); transform: translateY(0); }
         }
 
-        .btn-locked {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(60, 60, 60, 0.6) 100%);
-            color: #666;
-            cursor: not-allowed;
-            border: 1px solid rgba(80, 80, 80, 0.3);
+        /* helper class applied briefly to create snappy flicker on the whole page */
+        .flicker-glow {
+            animation: neonFlicker 380ms linear both;
         }
 
-        .btn-locked:hover {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(60, 60, 60, 0.6) 100%);
-            transform: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        /* when purple-mode is toggled, add a very short flicker to elements */
+        body.purple-mode .btn,
+        body.purple-mode header img,
+        body.purple-mode section h2,
+        body.purple-mode .team-info h3,
+        body.purple-mode nav a:hover,
+        body.purple-mode .team-member:hover {
+            animation: electricPulse 380ms cubic-bezier(.2,.9,.2,1);
         }
 
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
+        /* quick transitions/limits for snappiness */
+        a, .btn, .team-link, .team-member img, header, nav, section, .game-card, .social-link {
+            transition-duration: 0.28s;
+            transition-timing-function: cubic-bezier(.2,.9,.2,1);
         }
 
-        .social-link {
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            border: 1px solid rgba(80, 80, 80, 0.3);
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        /* subtle focus outlines for accessibility */
+        a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset:2px; }
 
-        .social-link:hover {
-            border-color: rgba(139, 0, 0, 0.6);
-            color: #ff4444;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-        }
-
-        footer {
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(15px);
-            text-align: center;
-            padding: 2.5rem;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(139, 0, 0, 0.3);
-            color: #666;
-        }
-
-        footer p {
-            margin: 0.5rem 0;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        /* keyframes for fade/slide used earlier */
+        @keyframes fadeIn { from{ opacity:0 } to{ opacity:1 } }
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity:0; transform: translateY(40px); }
+            to   { opacity:1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) {
-            header img {
-                max-width: 90%;
-            }
-            
-            nav a {
-                display: block;
-                margin: 0.5rem auto;
-                max-width: 200px;
-            }
+        /* short responsive adjustments */
+        @media (max-width:768px) {
+            header img { max-width:90%; }
+            nav a { display:block; margin:0.5rem auto; max-width:200px; }
+            .container { padding:2rem 1rem; }
+            section { padding:2rem 1.5rem; margin:2rem auto; }
+            section h2 { font-size:2rem; }
+            .games-grid { grid-template-columns:1fr; gap:1.5rem; }
+            .team-grid { grid-template-columns:1fr; }
+            .team-member { flex-direction:column; align-items:center; text-align:center; }
+            .social-links { flex-direction:column; }
+        }
 
-            .container {
-                padding: 2rem 1rem;
-            }
-
-            section {
-                padding: 2rem 1.5rem;
-                margin: 2rem auto;
-            }
-
-            section h2 {
-                font-size: 2rem;
-            }
-
-            .games-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .team-member {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .social-links {
-                flex-direction: column;
-            }
+        /* utility to add an extra strong flicker on body when toggling */
+        body.flicker-strong::after{
+            content:'';
+            position:fixed; inset:0; pointer-events:none;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
+            mix-blend-mode: screen;
+            animation: neonFlicker 380ms linear;
+            z-index:9999;
         }
     </style>
 </head>
@@ -462,11 +370,11 @@
             <h2>About Us</h2>
             <p>
                 Welcome to Riko Studios!
-It’s just the two of us, me and Sidzo stumbling our way through the indie game dev world.
+                It’s just the two of us, me and Sidzo stumbling our way through the indie game dev world.
 
-We hope you enjoy our… well, projects. To be honest, we don’t have any fully working games just yet. But I’m revisiting the idea of creating a demo for my game, Afterhours. By my estimate, it might be ready by the end of the month… though, you know, that’s just me.
+                We hope you enjoy our… well, projects. To be honest, we don’t have any fully working games just yet. But I’m revisiting the idea of creating a demo for my game, Afterhours. By my estimate, it might be ready by the end of the month… though, you know, that’s just me.
 
-And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo. 
+                And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo.
             </p>
             <p style="margin-top: 1rem;">
                 Founded in 2024, By IskraLabs. (That's kinda it...)
@@ -483,9 +391,9 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
                         <span class="game-tag">#simulator</span>
                         <span class="game-tag">#test</span>
                     </div>
-                    <a href="https://iskralabs.itch.io/mozarixos" class="btn" target="_blank">Learn More</a>
+                    <a href="https://iskralabs.itch.io/mozarixos" class="btn" target="_blank" rel="noopener">Learn More</a>
                 </div>
-                
+
                 <div class="game-card">
                     <h3>Site-401</h3>
                     <p>Scp thing? Also not a game just a skill test</p>
@@ -494,9 +402,9 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
                         <span class="game-tag">#simulator</span>
                         <span class="game-tag">#test</span>
                     </div>
-                    <a href="https://iskralabs.itch.io/site-401" class="btn" target="_blank">Learn More</a>
+                    <a href="https://iskralabs.itch.io/site-401" class="btn" target="_blank" rel="noopener">Learn More</a>
                 </div>
-                
+
                 <div class="game-card">
                     <h3>After Hours (In dev)</h3>
                     <p>It's a horror game... Your job is to secure the school and prevent anyone or anything from getting in/out. (shocking i know) I will make the desc better later on when i actually make the demo.</p>
@@ -518,20 +426,21 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
                         <h3>IskraLabs</h3>
                         <div class="pronouns">he/him</div>
                         <div class="bio">
-                            Lead developer and founder of Riko Studios. Trying my best... 
+                            Lead developer and founder of Riko Studios. Trying my best...
                         </div>
                         <div class="team-tags">
                             <span class="team-tag">#maincoder</span>
                             <span class="team-tag">#3dmodeler</span>
                         </div>
                         <div class="team-links">
-                            <a href="https://iskralabs.itch.io/" class="team-link" target="_blank">Itch.io</a>
-                            <a href="https://www.youtube.com/@IskraLabs" class="team-link" target="_blank">YouTube</a>
+                            <a href="https://iskralabs.itch.io/" class="team-link" target="_blank" rel="noopener">Itch.io</a>
+                            <a href="https://www.youtube.com/@IskraLabs" class="team-link" target="_blank" rel="noopener">YouTube</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="team-member">
+                <!-- SIDZO: note the .sidzo class on this card -->
+                <div class="team-member sidzo">
                     <img src="team_member2.png" alt="Team Member 2">
                     <div class="team-info">
                         <h3>Sidźo</h3>
@@ -545,8 +454,8 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
                             <span class="team-tag">#scripter</span>
                         </div>
                         <div class="team-links">
-                            <a href="https://www.youtube.com/@yepsidzo" class="team-link" target="_blank">YouTube</a>
-                            <a href="https://sidzo.itch.io" class="team-link" target="_blank">Itch.io</a>
+                            <a href="https://www.youtube.com/@yepsidzo" class="team-link" target="_blank" rel="noopener">YouTube</a>
+                            <a href="https://sidzo.itch.io" class="team-link" target="_blank" rel="noopener">Itch.io</a>
                         </div>
                     </div>
                 </div>
@@ -556,21 +465,21 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
         <section id="contact">
             <h2>Socials</h2>
             <p>Wanna talk? or something... here are our links!</p>
-            
-            <h3 style="color: #ff4444; margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
+
+            <h3 style="color: var(--accent); margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
             <div class="social-links">
                 <a href="mailto:marqueraft@gmail.com" class="social-link">
                     📧 Email
                 </a>
-                <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank">
+                <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank" rel="noopener">
                     🐦 Twitter/X
                 </a>
-                <a href="https://discord.gg/EwmAnbVa8G" class="social-link">
+                <a href="https://discord.gg/EwmAnbVa8G" class="social-link" target="_blank" rel="noopener">
                     💬 Discord
                 </a>
             </div>
 
-            <h3 style="color: #ff4444; margin-top: 2.5rem; font-size: 1.3rem;">Random Info</h3>
+            <h3 style="color: var(--accent); margin-top: 2.5rem; font-size: 1.3rem;">Random Info</h3>
             <p style="margin-top: 1rem;">
                  Founded: 2024<br>
                  Based: Poland<br>
@@ -586,26 +495,121 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
     </footer>
 
     <script>
-        // Scroll to top to prevent jump
+        // Prevent jump on load
         window.scrollTo(0,0);
 
-        // Smooth scroll for nav links
+        // Smooth scroll for nav links + update URL without jump
         document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function(e){
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const target = document.querySelector(targetId);
-
-                target.scrollIntoView({behavior: 'smooth', block: 'start'});
-
-                // Glow effect
-                target.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
-                setTimeout(()=>{ target.style.boxShadow = ''; }, 600);
-
-                // Update URL hash without jump
-                history.pushState(null,'',targetId);
+                if(!target) return;
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // subtle glow when navigating
+                target.style.boxShadow = '0 0 40px var(--accent-glow)';
+                setTimeout(()=> { target.style.boxShadow = ''; }, 600);
+                history.pushState(null, '', targetId);
             });
         });
+
+        // ===== THEME TOGGLE: SNAPPY CYBERPUNK FLICKER =====
+        (function(){
+            const sidzoCard = document.querySelector('.team-member.sidzo');
+            const body = document.body;
+
+            if(!sidzoCard) return;
+
+            let hoverTimeout = null;
+
+            // helper: add purple-mode with a quick flicker
+            function activatePurpleMode(){
+                // if already purple-mode, briefly retrigger flicker visual
+                if(body.classList.contains('purple-mode')){
+                    body.classList.add('flicker-strong');
+                    requestAnimationFrame(()=> {
+                        setTimeout(()=> body.classList.remove('flicker-strong'), 420);
+                    });
+                    return;
+                }
+
+                body.classList.add('purple-mode', 'flicker-strong');
+
+                // remove the flicker helper after animation
+                setTimeout(()=> body.classList.remove('flicker-strong'), 420);
+
+                // add a short page-wide flicker animation class to key elements (for snappy effect)
+                const els = document.querySelectorAll('header img, .btn, section h2, .team-info h3, .team-member, nav a');
+                els.forEach(el => {
+                    el.classList.add('flicker-glow');
+                    // remove after animation finished
+                    setTimeout(()=> el.classList.remove('flicker-glow'), 420);
+                });
+            }
+
+            // helper: deactivate (snap back to red) with flicker
+            function deactivatePurpleMode(){
+                // symmetrical flicker when switching off
+                body.classList.add('flicker-strong');
+                setTimeout(()=> body.classList.remove('flicker-strong'), 420);
+
+                // also add flicker to elements while removing purple-mode quickly
+                const els = document.querySelectorAll('header img, .btn, section h2, .team-info h3, .team-member, nav a');
+                els.forEach(el => {
+                    el.classList.add('flicker-glow');
+                    setTimeout(()=> el.classList.remove('flicker-glow'), 420);
+                });
+
+                // remove the mode after a fraction of a second so flicker appears before revert
+                setTimeout(()=> {
+                    body.classList.remove('purple-mode');
+                }, 80); // very snappy revert
+            }
+
+            // Mouse enter / leave for desktop
+            sidzoCard.addEventListener('mouseenter', (e) => {
+                if(hoverTimeout) { clearTimeout(hoverTimeout); hoverTimeout = null; }
+                // quick activation
+                activatePurpleMode();
+            });
+
+            sidzoCard.addEventListener('mouseleave', (e) => {
+                // small debounce so quick mouse slips don't spam
+                if(hoverTimeout) clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(()=> {
+                    deactivatePurpleMode();
+                }, 120);
+            });
+
+            // Click / touch for mobile: toggle on tap
+            let touchTimer = 0;
+            sidzoCard.addEventListener('touchstart', (e) => {
+                const now = Date.now();
+                // prevent double-tap weirdness
+                if(now - touchTimer < 400) return;
+                touchTimer = now;
+                if(body.classList.contains('purple-mode')){
+                    deactivatePurpleMode();
+                } else {
+                    activatePurpleMode();
+                }
+            }, { passive: true });
+
+            // Accessibility: keyboard focus toggles (Enter or Space)
+            sidzoCard.setAttribute('tabindex', '0');
+            sidzoCard.addEventListener('keydown', (e) => {
+                if(e.key === 'Enter' || e.key === ' '){
+                    e.preventDefault();
+                    if(body.classList.contains('purple-mode')) deactivatePurpleMode();
+                    else activatePurpleMode();
+                }
+            });
+
+            // Optional: keep purple-mode active while any link inside sidzo is focused (keyboard nav)
+            sidzoCard.addEventListener('focusin', () => { activatePurpleMode(); });
+            sidzoCard.addEventListener('focusout', () => { deactivatePurpleMode(); });
+
+        })();
     </script>
 </body>
 </html>
