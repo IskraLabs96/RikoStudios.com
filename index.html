@@ -6,7 +6,6 @@
     <title>Riko Studios - Game Development</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
-    
     <style>
         * {
             margin: 0;
@@ -444,10 +443,11 @@
     </style>
 </head>
 <body>
+
     <header>
         <img src="Riko_Studios.png" alt="Riko Studios Logo">
         <div class="logo-glow"></div>
-        <p>No slogan yet...</p>
+        <p>As long as it works, that's all that matters.</p>
     </header>
 
     <nav>
@@ -586,22 +586,24 @@ And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo
     </footer>
 
     <script>
+        // Scroll to top to prevent jump
+        window.scrollTo(0,0);
+
+        // Smooth scroll for nav links
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
-                targetSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                const target = document.querySelector(targetId);
 
-                targetSection.style.transition = 'all 0.3s';
-                targetSection.style.boxShadow = '0 0 40px rgba(255, 0, 0, 0.6)';
-                setTimeout(() => {
-                    targetSection.style.boxShadow = '';
-                }, 600);
+                target.scrollIntoView({behavior: 'smooth', block: 'start'});
+
+                // Glow effect
+                target.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
+                setTimeout(()=>{ target.style.boxShadow = ''; }, 600);
+
+                // Update URL hash without jump
+                history.pushState(null,'',targetId);
             });
         });
     </script>
