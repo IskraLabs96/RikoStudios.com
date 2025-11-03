@@ -1,516 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Riko Studios — Fusion / Iskra / Sidźo Themes</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-/* =========================================================================
-   THEME VARIABLES
-   - Default = Fusion (animated red<>purple)
-   - body.theme-iskra = red (instant w/ flicker)
-   - body.theme-sidzo = purple (smooth 0.5s)
-   ========================================================================= */
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Riko Studios - Game Development</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
 
-/* ---------- Fusion (default) color tokens ---------- */
-:root{
-  --bg-900: #060407;
-  --bg-800: #11060f;
-  --panel: rgba(18,12,18,0.6);
-  --glass-1: rgba(20,14,20,0.78);
-  --glass-2: rgba(16,10,16,0.86);
+    <style>
+    /* -------------------------
+       THEME VARIABLES (fusion default)
+       All accents reference these so the whole site can switch.
+       ------------------------- */
+    :root{
+        /* Background */
+        --bg-900: #060307;
+        --bg-800: #12060f;
 
-  /* Fusion gradient endpoints (deep red -> luxury purple) */
-  --fusion-a: #8b0000;   /* deep red */
-  --fusion-b: #743089;   /* luxury purple */
+        /* Fusion: animated red <-> magenta <-> purple */
+        --fusion-a: #8b0000;   /* deep red */
+        --fusion-b: #b5179e;   /* magenta */
+        --fusion-c: #743089;   /* luxury purple */
 
-  /* Derived fusion tokens */
-  --fusion-gradient: linear-gradient(90deg, var(--fusion-a), var(--fusion-b));
-  --fusion-glow: rgba(181,23,158,0.30); /* magenta-ish glow */
-  --fusion-radial-a: rgba(139,0,0,0.10);
-  --fusion-radial-b: rgba(116,48,137,0.08);
+        /* Derived accent tokens (default = fusion) */
+        --accent: var(--fusion-gradient-fg);
+        --accent-solid: #b5179e;
+        --accent-glow: rgba(181,23,158,0.28);
+        --btn-border: rgba(255,255,255,0.06);
+        --card-border: rgba(120,80,90,0.08);
+        --card-border-strong: rgba(120,80,90,0.18);
+        --shadow-accent: rgba(0,0,0,0.45);
 
-  /* Other neutral tokens used across themes */
-  --text-main: #f7f7f7;
-  --muted: rgba(255,255,255,0.78);
-  --panel-contrast: rgba(0,0,0,0.45);
+        --logo-drop: rgba(181,23,158,0.22);
 
-  /* Buttons & borders (start using fusion gradient) */
-  --accent-bg: var(--fusion-gradient);
-  --accent-color: #fff;
-  --accent-glow: var(--fusion-glow);
-  --card-border: rgba(120,80,90,0.08);
-  --card-border-strong: rgba(120,80,90,0.18);
-  --shadow-accent: rgba(0,0,0,0.45);
+        --bg-radial-1: rgba(139,0,0,0.10);
+        --bg-radial-2: rgba(116,48,137,0.08);
 
-  /* background radial colors */
-  --bg-radial-1: var(--fusion-radial-a);
-  --bg-radial-2: var(--fusion-radial-b);
+        /* Fusion gradient backgrounds used as CSS variables */
+        --fusion-gradient: linear-gradient(90deg, var(--fusion-a), var(--fusion-b), var(--fusion-c));
+        /* A foreground color fallback for places that need a solid color */
+        --fusion-gradient-fg: #b5179e;
 
-  /* animation speed control */
-  --fusion-loop-duration: 6s;
-}
+        /* Animation durations */
+        --fusion-loop-duration: 6s; /* slow & elegant */
+        --sidzo-fade-duration: 0.5s; /* smooth fade for Sidzo */
+        --iskra-flicker-duration: 420ms; /* flicker duration */
+    }
 
-/* ---------- Animation of fusion gradient - slow elegant loop ---------- */
-/* We'll animate a moving background-position on a pseudo-element used by elements that need gradient motion.
-   For headings/text we will apply the animated gradient as background-clip:text.
-*/
-@keyframes fusionShift {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
-}
+    /* -------------------------
+       ISKRA (red) overrides
+       ------------------------- */
+    body.theme-iskra {
+        --bg-900: #060204;
+        --bg-800: #140606;
 
-/* ---------- Iskra (Red) overrides ---------- */
-body.theme-iskra{
-  --bg-900: #060204;
-  --bg-800: #140606;
-  --panel: rgba(22,10,10,0.66);
-  --glass-1: rgba(20,10,10,0.80);
-  --glass-2: rgba(14,8,8,0.88);
+        --accent: #ff3333;
+        --accent-solid: #ff3333;
+        --accent-glow: rgba(255,50,50,0.36);
+        --btn-border: rgba(255,0,0,0.28);
+        --card-border: rgba(139,0,0,0.28);
+        --card-border-strong: rgba(139,0,0,0.6);
+        --shadow-accent: rgba(139,0,0,0.36);
+        --logo-drop: rgba(255,0,0,0.32);
 
-  --accent-bg: linear-gradient(135deg, rgba(139,0,0,0.95), rgba(255,0,0,0.75));
-  --accent-color: #fff;
-  --accent-glow: rgba(255,30,30,0.38);
-  --card-border: rgba(139,0,0,0.22);
-  --card-border-strong: rgba(139,0,0,0.6);
-  --shadow-accent: rgba(139,0,0,0.36);
+        --bg-radial-1: rgba(139,0,0,0.12);
+        --bg-radial-2: rgba(255,0,0,0.06);
+    }
 
-  --bg-radial-1: rgba(139,0,0,0.12);
-  --bg-radial-2: rgba(255,0,0,0.06);
-}
+    /* -------------------------
+       SIDZO (purple) overrides - smooth fade
+       ------------------------- */
+    body.theme-sidzo {
+        --bg-900: #040106;
+        --bg-800: #120116;
 
-/* ---------- Sidzo (Purple) overrides (smooth 0.5s) ---------- */
-body.theme-sidzo{
-  --bg-900: #040106;
-  --bg-800: #120116;
-  --panel: rgba(16,8,22,0.66);
-  --glass-1: rgba(18,10,24,0.80);
-  --glass-2: rgba(14,8,20,0.9);
+        --accent: #743089;
+        --accent-solid: #743089;
+        --accent-glow: rgba(116,48,137,0.36);
+        --btn-border: rgba(116,48,137,0.32);
+        --card-border: rgba(116,48,137,0.24);
+        --card-border-strong: rgba(75,0,130,0.52);
+        --shadow-accent: rgba(75,0,130,0.36);
+        --logo-drop: rgba(116,48,137,0.32);
 
-  --accent-bg: linear-gradient(135deg, rgba(75,0,130,0.86), rgba(116,48,137,0.96));
-  --accent-color: #fff;
-  --accent-glow: rgba(116,48,137,0.36);
-  --card-border: rgba(116,48,137,0.24);
-  --card-border-strong: rgba(75,0,130,0.52);
-  --shadow-accent: rgba(75,0,130,0.36);
+        --bg-radial-1: rgba(116,48,137,0.10);
+        --bg-radial-2: rgba(75,0,130,0.06);
+    }
 
-  --bg-radial-1: rgba(116,48,137,0.10);
-  --bg-radial-2: rgba(75,0,130,0.06);
-}
+    /* -------------------------
+       BASIC RESET / LAYOUT
+       ------------------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+        font-family: 'Roboto Condensed', sans-serif;
+        background: var(--bg-900);
+        color: #ffffff;
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background 0s linear; /* instant swap by default; Sidzo handled separately */
+    }
 
-/* =========================================================================
-   BASIC RESET & LAYOUT
-   Instant transitions for Iskra (handled by immediate class addition),
-   but Sidzo should fade smoothly — we'll add a 0.5s transition for properties
-   when body.theme-sidzo is active.
-   ========================================================================= */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:'Roboto Condensed',sans-serif;
-  background: var(--bg-900);
-  color: var(--text-main);
-  line-height:1.6;
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  transition: background 0s linear; /* fusion anim handles motion; theme swaps are instant except sidzo fade */
-}
+    /* Animated "liquid" fusion background: uses a moving gradient layer */
+    body::before{
+        content: '';
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        z-index: -2;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 10% 20%, var(--bg-radial-1) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, var(--bg-radial-2) 0%, transparent 40%),
+            linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 50%, var(--bg-900) 100%);
+        transition: background 0.28s linear;
+    }
 
-/* For Sidzo smooth fade, when .theme-sidzo is toggled we will add a short transition on affected properties below */
-body.theme-sidzo * {
-  transition: color 0.5s ease, background 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease, filter 0.5s ease;
-}
+    /* moving soft color layer to create the liquid shimmer */
+    body::after{
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(circle at 20% 30%, rgba(139,0,0,0.06), transparent 25%),
+                    radial-gradient(circle at 80% 70%, rgba(116,48,137,0.06), transparent 30%),
+                    linear-gradient(90deg, rgba(139,0,0,0.02), rgba(181,23,158,0.02), rgba(116,48,137,0.02));
+        background-size: 300% 300%;
+        filter: blur(28px) saturate(110%);
+        animation: liquidShift var(--fusion-loop-duration) linear infinite;
+        transition: opacity 0.28s linear;
+    }
 
-/* Fusion animated background radials (changes with theme variables) */
-body::before{
-  content:'';
-  position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background:
-    radial-gradient(circle at 10% 20%, var(--bg-radial-1) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, var(--bg-radial-2) 0%, transparent 40%),
-    linear-gradient(180deg, var(--bg-900) 0%, var(--bg-800) 50%, var(--bg-900) 100%);
-  transition: background 0.28s linear;
-}
+    @keyframes liquidShift {
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-/* Header */
-header{
-  background: var(--glass-1);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  padding:2rem 0 1rem;
-  text-align:center;
-  border-bottom:1px solid var(--card-border);
-  box-shadow: 0 8px 36px rgba(0,0,0,0.48), 0 0 60px var(--accent-glow);
-  position:sticky; top:0; z-index:100;
-}
-header img{
-  max-width:640px; width:90%; height:auto; display:block; margin:0 auto;
-  filter: drop-shadow(0 0 26px var(--accent-glow));
-  transition: transform 0.18s;
-}
+    header {
+        background: rgba(20,20,20,0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 2rem 0 1rem 0;
+        text-align: center;
+        border-bottom: 1px solid var(--card-border);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: border-color 0.28s linear, box-shadow 0.28s linear, background 0.28s linear;
+    }
 
-/* Logo glow uses fusion gradient animation via background */
-.logo-glow{
-  width:80%; max-width:520px; height:4px; margin:1.2rem auto;
-  background: var(--accent-bg);
-  background-size: 200% 200%;
-  animation: fusionShift var(--fusion-loop-duration) linear infinite;
-  box-shadow: 0 0 26px var(--accent-glow);
-  border-radius: 6px;
-}
+    header img {
+        max-width: 600px;
+        width: 90%;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+        filter: drop-shadow(0 0 20px var(--logo-drop));
+        animation: fadeIn 1s ease-in;
+        transition: filter 0.35s linear;
+    }
 
-/* Nav */
-nav{
-  background: var(--glass-2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding:1.1rem 0; text-align:center;
-  border-bottom:1px solid var(--card-border);
-  position:sticky; top:0; z-index:99;
-}
-nav a{
-  color:rgba(255,255,255,0.88); text-decoration:none; margin:0 1.3rem;
-  font-size:1.03rem; font-weight:400; padding:0.6rem 1.1rem; border-radius:8px;
-  display:inline-block; text-transform:uppercase; letter-spacing:1px;
-  transition: color 0.12s;
-}
-nav a:hover{
-  color:var(--accent-color);
-  box-shadow: 0 0 18px var(--accent-glow);
-}
+    .logo-glow {
+        width: 80%;
+        max-width: 500px;
+        height: 3px;
+        margin: 1.5rem auto 1rem auto;
+        background: var(--fusion-gradient);
+        background-size: 300% 300%;
+        animation: fusionGradient var(--fusion-loop-duration) linear infinite;
+        box-shadow: 0 0 20px var(--accent-glow);
+        transition: background 0.35s linear, box-shadow 0.35s linear;
+    }
 
-/* Container & sections */
-.container{ max-width:1200px; margin:0 auto; padding:3rem 2rem; }
-section{
-  background: var(--panel);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  margin:3rem auto; padding:2.2rem; border-radius:18px;
-  border:1px solid var(--card-border);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-}
-section h2{
-  font-size:2.25rem; margin-bottom:0.9rem; font-weight:700; letter-spacing:1.5px;
-  /* gradient text using the animated accent background */
-  background-image: var(--accent-bg);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: fusionShift var(--fusion-loop-duration) linear infinite;
-}
-section p{ color: rgba(255,255,255,0.9) }
+    @keyframes fusionGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-/* Games grid */
-.games-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.8rem; margin-top:1.6rem }
-.game-card{
-  background:var(--glass-2); padding:1.6rem; border-radius:12px;
-  border:1px solid var(--card-border); box-shadow: 0 6px 18px var(--panel-contrast);
-  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-}
-.game-card:hover{
-  transform:translateY(-6px);
-  box-shadow: 0 14px 36px var(--shadow-accent), 0 0 20px var(--accent-glow);
-  border-color:var(--card-border-strong);
-}
-.game-card h3{ color:var(--accent-color); margin-bottom:0.6rem }
+    @keyframes pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; transform: scaleX(1.02); } }
 
-/* Team grid */
-.team-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.6rem; margin-top:1.6rem }
-.team-member{
-  background:var(--glass-2); padding:1.4rem; border-radius:12px; display:flex; gap:1rem; align-items:flex-start;
-  border:1px solid var(--card-border); cursor:pointer; user-select:none;
-  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
-}
-.team-member:focus{ outline:2px solid rgba(255,255,255,0.04); outline-offset:3px }
-.team-member:hover{ transform:translateY(-4px) }
-.team-member img{ width:112px; height:112px; border-radius:12px; object-fit:cover; border:2px solid var(--card-border-strong); box-shadow:0 0 18px var(--accent-glow) }
-.team-info h3{ color:var(--accent-color); margin-bottom:0.1rem; font-size:1.3rem }
-.team-info .pronouns{ color: rgba(255,255,255,0.85); margin-bottom:0.4rem }
-.team-info .bio{ color: rgba(255,255,255,0.9) }
+    header p { font-size: 1.1rem; margin-top: 0.5rem; color: rgba(255,255,255,0.85); font-weight: 300; transition: color 0.28s linear; }
 
-/* Tags & buttons */
-.team-tags, .game-tags{ display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.8rem }
-.team-tag, .game-tag{ background:#000; color:#fff; padding:0.36rem 0.8rem; border-radius:999px; font-size:0.82rem }
-.team-link{ color:rgba(255,255,255,0.9); text-decoration:none }
-.btn{
-  display:inline-block; padding:0.7rem 1.9rem; border-radius:999px; font-weight:700; text-transform:uppercase;
-  background: var(--accent-bg); color:var(--accent-color); border:1px solid var(--btn-border, rgba(255,255,255,0.08));
-  box-shadow: 0 8px 28px var(--shadow-accent); transition: transform 0.12s;
-  background-size: 200% 200%;
-}
-.btn:hover{ transform: translateY(-3px) }
+    nav {
+        background: rgba(15, 15, 15, 0.78);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 1.2rem 0;
+        text-align: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        transition: background 0.28s linear, border-color 0.28s linear;
+    }
 
-/* Social links & footer */
-.social-links{ display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap }
-.social-link{ background:var(--glass-2); padding:0.8rem 1.1rem; border-radius:10px; color:rgba(255,255,255,0.9); text-decoration:none }
-footer{ background: rgba(10,10,10,0.9); padding:2.2rem; text-align:center; border-top:1px solid var(--card-border); color:#aaa }
+    nav a {
+        color: #ccc;
+        text-decoration: none;
+        margin: 0 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 400;
+        transition: all 0.25s;
+        padding: 0.7rem 1.5rem;
+        border-radius: 8px;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-/* =========================================================================
-   ISKRA FLICKER / GLITCH (played ONLY when entering Iskra)
-   - overlay + element flicker plays once on activation
-   - executed by JS adding .flicker-iskra to body briefly
-   ========================================================================= */
-@keyframes iskraOverlay {
-  0% { opacity:0; transform:scale(1) }
-  6% { opacity:0.18; transform:scale(1.02) }
-  12%{ opacity:0.04; transform:scale(0.99) }
-  22%{ opacity:0.22; transform:scale(1.015) }
-  38%{ opacity:0.08; transform:scale(1) }
-  60%{ opacity:0.18; transform:scale(1.01) }
-  100%{ opacity:0; transform:scale(1) }
-}
-body.flicker-iskra::after{
-  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
-  background: linear-gradient(90deg, rgba(255,0,0,0.04), rgba(255,255,255,0.02));
-  mix-blend-mode: screen;
-  animation: iskraOverlay 420ms linear forwards;
-}
+    nav a:hover {
+        color: var(--accent-solid);
+        background: rgba(0,0,0,0.15);
+        box-shadow: 0 0 20px var(--accent-glow);
+        text-shadow: 0 0 8px var(--accent-glow);
+    }
 
-/* element-level flicker for emphasis on Iskra activation */
-@keyframes iskraElement {
-  0%{ filter:brightness(1); text-shadow:none; transform:none }
-  20%{ filter:brightness(1.25); text-shadow:0 0 18px rgba(255,60,60,0.6); transform:translateY(-2px) }
-  45%{ filter:brightness(1.5); text-shadow:0 0 36px rgba(255,60,60,0.7); transform:translateY(-4px) }
-  70%{ filter:brightness(1.12); text-shadow:0 0 20px rgba(255,60,60,0.55); transform:translateY(-2px) }
-  100%{ filter:brightness(1); text-shadow:none; transform:none }
-}
-.iskra-flicker { animation: iskraElement 420ms linear both }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
 
-/* =========================================================================
-   FUSION subtle breathing glow: gentle opacity animation on the fusion glow
-   applied to elements that need it (logo, highlights). Slow & elegant.
-   ========================================================================= */
-@keyframes fusionGlowPulse {
-  0% { opacity: 0.85; transform: none; }
-  50% { opacity: 1; transform: scaleX(1.01); }
-  100% { opacity: 0.85; transform: none; }
-}
-.logo-glow, .btn {
-  animation: fusionGlowPulse var(--fusion-loop-duration) ease-in-out infinite;
-}
+    section {
+        background: rgba(25,25,25,0.6);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        margin: 3rem auto;
+        padding: 2.5rem;
+        border-radius: 20px;
+        border: 1px solid var(--card-border);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 60px rgba(0,0,0,0.03);
+        animation: slideUp 0.8s ease-out;
+        scroll-margin-top: 100px;
+        transition: border-color 0.28s linear, box-shadow 0.28s linear, background 0.28s linear;
+    }
 
-/* quick accessibility tiny focus */
-a:focus, .btn:focus { outline: 2px solid rgba(255,255,255,0.04); outline-offset:2px }
+    section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        background-image: var(--fusion-gradient);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: fusionGradient var(--fusion-loop-duration) linear infinite;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
 
-/* responsive */
-@media (max-width:768px){
-  .container{ padding:2rem 1rem }
-  .games-grid{ grid-template-columns:1fr }
-  .team-grid{ grid-template-columns:1fr }
-  .team-member{ flex-direction:column; align-items:center; text-align:center }
-  .team-member img{ margin-bottom:0.6rem }
-  .social-links{ flex-direction:column }
-}
-</style>
+    section p {
+        color: rgba(255,255,255,0.88);
+        transition: color 0.25s;
+    }
+
+    /* Games grid */
+    .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .game-card {
+        background: rgba(15,15,15,0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        transition: all 0.28s;
+        border: 1px solid rgba(80,80,80,0.3);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .game-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 40px var(--shadow-accent), 0 0 30px var(--accent-glow);
+        border-color: var(--card-border-strong);
+    }
+
+    .game-card h3 {
+        color: var(--accent-solid);
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .game-card p { color: #bbb; }
+
+    .game-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:1rem; }
+    .game-tag { background: #000; color: #fff; padding:0.4rem 0.9rem; border-radius:15px; font-size:0.85rem; }
+
+    .team-grid {
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2.5rem;
+        margin-top: 2rem;
+    }
+
+    .team-member {
+        background: rgba(15,15,15,0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 1px solid rgba(80,80,80,0.3);
+        display:flex;
+        gap:1.5rem;
+        align-items:flex-start;
+        transition: all 0.22s;
+        position: relative;
+    }
+
+    .team-member:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 30px var(--shadow-accent);
+        border-color: var(--card-border-strong);
+    }
+
+    .team-member img {
+        width:120px; height:120px; border-radius:15px; object-fit:cover;
+        border: 2px solid var(--card-border-strong);
+        box-shadow: 0 0 20px var(--accent-glow);
+        transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s;
+        flex-shrink: 0;
+    }
+
+    .team-info { flex:1; }
+    .team-info h3 {
+        color: var(--accent-solid);
+        font-size:1.6rem;
+        margin-bottom:0.3rem;
+        font-weight:700;
+        transition: color 0.28s;
+    }
+
+    .team-info .pronouns { color: rgba(255,255,255,0.75); font-size:0.9rem; margin-bottom:1rem; font-weight:300; }
+    .team-info .bio { color: rgba(255,255,255,0.88); line-height:1.6; }
+
+    .team-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.8rem; }
+    .team-tag { background:#000; color:#fff; padding:0.4rem 0.9rem; border-radius:15px; font-size:0.85rem; }
+
+    .team-links { display:flex; gap:1rem; margin-top:0.8rem; flex-wrap:wrap; }
+    .team-link { transition: all 0.25s; opacity:0.88; color:rgba(255,255,255,0.9); text-decoration:none; }
+    .team-link:hover { opacity:1; filter: drop-shadow(0 0 8px var(--accent-glow)); transform: translateY(-2px); color: var(--accent-solid); }
+
+    .btn {
+        display:inline-block;
+        background: var(--fusion-gradient);
+        color: white;
+        padding: 0.9rem 2.5rem;
+        border-radius:30px;
+        text-decoration:none;
+        font-weight:700;
+        margin-top:1rem;
+        transition: all 0.25s;
+        box-shadow: 0 4px 20px var(--shadow-accent);
+        border: 1px solid var(--btn-border);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-size: 300% 300%;
+        animation: fusionGradient var(--fusion-loop-duration) linear infinite;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px var(--accent-glow), 0 0 40px var(--accent-glow);
+    }
+
+    .btn-locked {
+        background: linear-gradient(135deg, rgba(40,40,40,0.8) 0%, rgba(60,60,60,0.6) 100%);
+        color: #666; cursor:not-allowed; border: 1px solid rgba(80,80,80,0.3);
+    }
+
+    .social-links { display:flex; gap:1.5rem; margin-top:1.5rem; flex-wrap:wrap; }
+    .social-link {
+        background: rgba(15,15,15,0.8);
+        backdrop-filter: blur(10px);
+        padding:1rem 1.5rem;
+        border-radius:10px;
+        border:1px solid rgba(80,80,80,0.3);
+        color: #ccc;
+        text-decoration:none;
+        transition: all 0.25s;
+        display:flex; align-items:center; gap:0.5rem;
+    }
+    .social-link:hover {
+        border-color: var(--card-border-strong);
+        color: var(--accent-solid);
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+
+    footer {
+        background: rgba(10,10,10,0.9);
+        backdrop-filter: blur(15px);
+        text-align:center;
+        padding: 2.5rem;
+        margin-top: 4rem;
+        border-top: 1px solid var(--card-border);
+        color: #999;
+    }
+    footer p { margin: 0.5rem 0; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* -------------------------
+       ISKRA flicker animation (overlay + per-element flicker)
+       triggered each time Iskra hovered
+       ------------------------- */
+    @keyframes iskraOverlay {
+        0% { opacity: 0; transform: scale(1); }
+        6% { opacity: 0.18; transform: scale(1.02); }
+        12% { opacity: 0.04; transform: scale(0.99); }
+        22% { opacity: 0.22; transform: scale(1.015); }
+        38% { opacity: 0.08; transform: scale(1); }
+        60% { opacity: 0.18; transform: scale(1.01); }
+        100% { opacity: 0; transform: scale(1); }
+    }
+
+    body.flicker-iskra::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: linear-gradient(90deg, rgba(255,0,0,0.04), rgba(255,255,255,0.02));
+        mix-blend-mode: screen;
+        animation: iskraOverlay var(--iskra-flicker-duration) linear forwards;
+    }
+
+    @keyframes iskraElement {
+        0% { filter: brightness(1); text-shadow: none; transform: none; }
+        20% { filter: brightness(1.25); text-shadow: 0 0 18px rgba(255,60,60,0.6); transform: translateY(-2px); }
+        45% { filter: brightness(1.5); text-shadow: 0 0 36px rgba(255,60,60,0.7); transform: translateY(-4px); }
+        70% { filter: brightness(1.12); text-shadow: 0 0 20px rgba(255,60,60,0.55); transform: translateY(-2px); }
+        100% { filter: brightness(1); text-shadow: none; transform: none; }
+    }
+
+    .iskra-flicker { animation: iskraElement var(--iskra-flicker-duration) linear both; }
+
+    /* -------------------------
+       SIDZO smooth fade - add transitions while theme-sidzo is active
+       ------------------------- */
+    body.theme-sidzo * {
+        transition: color var(--sidzo-fade-duration) ease, background var(--sidzo-fade-duration) ease, box-shadow var(--sidzo-fade-duration) ease, border-color var(--sidzo-fade-duration) ease, filter var(--sidzo-fade-duration) ease;
+    }
+
+    /* quick instant feel for other interactions */
+    a, .btn, .team-link, .team-member img, header, nav, section, .game-card, .social-link {
+        transition-duration: 0.22s;
+        transition-timing-function: cubic-bezier(.2,.9,.2,1);
+    }
+
+    /* accessibility focus */
+    a:focus, .btn:focus, .team-link:focus { outline: 2px solid rgba(255,255,255,0.06); outline-offset:2px; }
+
+    /* responsive */
+    @media (max-width:768px) {
+        header img { max-width:90%; }
+        nav a { display:block; margin:0.5rem auto; max-width:200px; }
+        .container { padding:2rem 1rem; }
+        section { padding:2rem 1.5rem; margin:2rem auto; }
+        section h2 { font-size:2rem; }
+        .games-grid { grid-template-columns: 1fr; gap:1.5rem; }
+        .team-grid { grid-template-columns: 1fr; }
+        .team-member { flex-direction: column; align-items:center; text-align:center; }
+        .social-links { flex-direction: column; }
+    }
+    </style>
 </head>
 <body>
 
-<header>
-  <img src="Riko_Studios.png" alt="Riko Studios Logo">
-  <div class="logo-glow" aria-hidden="true"></div>
-  <p style="margin-top:0.4rem; color:rgba(255,255,255,0.85)">As long as it works, that's all that matters.</p>
-</header>
+    <header>
+        <img src="Riko_Studios.png" alt="Riko Studios Logo">
+        <div class="logo-glow"></div>
+        <p>As long as it works, that's all that matters.</p>
+    </header>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#games">Games</a>
-  <a href="#team">Team</a>
-  <a href="#contact">Contact</a>
-</nav>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-<main class="container" id="page-root">
-  <section id="about">
-    <h2>About Us</h2>
-    <p>
-      Welcome to Riko Studios — a micro indie duo blending crimson & violet vibes. We ship demos when they work.
-    </p>
-    <p style="margin-top:1rem;color:rgba(255,255,255,0.9)">Founded in 2024, by IskraLabs.</p>
-  </section>
+    <div class="container">
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                Welcome to Riko Studios!
+                It’s just the two of us, me and Sidzo stumbling our way through the indie game dev world.
 
-  <section id="games">
-    <h2>Our Games</h2>
-    <div class="games-grid">
-      <div class="game-card">
-        <h3>MozarixOS</h3>
-        <p>OS simulator / skill test.</p>
-        <div class="game-tags"><span class="game-tag">#simulator</span><span class="game-tag">#test</span></div>
-        <a class="btn" href="https://iskralabs.itch.io/mozarixos" target="_blank" rel="noopener">Learn More</a>
-      </div>
+                We hope you enjoy our… well, projects. To be honest, we don’t have any fully working games just yet. But I’m revisiting the idea of creating a demo for my game, Afterhours. By my estimate, it might be ready by the end of the month… though, you know, that’s just me.
 
-      <div class="game-card">
-        <h3>Site-401</h3>
-        <p>SCP-ish project / skill test.</p>
-        <div class="game-tags"><span class="game-tag">#horror</span></div>
-        <a class="btn" href="https://iskralabs.itch.io/site-401" target="_blank" rel="noopener">Learn More</a>
-      </div>
+                And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo.
+            </p>
+            <p style="margin-top: 1rem;">
+                Founded in 2024, By IskraLabs. (That's kinda it...)
+            </p>
+        </section>
+
+        <section id="games">
+            <h2>Our Games</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <h3>MozarixOS</h3>
+                    <p>OS simulator, doesnt really do anything... (This isnt an actuall game its just a thing to test my skills)</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#simulator</span>
+                        <span class="game-tag">#test</span>
+                    </div>
+                    <a href="https://iskralabs.itch.io/mozarixos" class="btn" target="_blank" rel="noopener">Learn More</a>
+                </div>
+
+                <div class="game-card">
+                    <h3>Site-401</h3>
+                    <p>Scp thing? Also not a game just a skill test</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#horror</span>
+                        <span class="game-tag">#simulator</span>
+                        <span class="game-tag">#test</span>
+                    </div>
+                    <a href="https://iskralabs.itch.io/site-401" class="btn" target="_blank" rel="noopener">Learn More</a>
+                </div>
+
+                <div class="game-card">
+                    <h3>After Hours (In dev)</h3>
+                    <p>It's a horror game... Your job is to secure the school and prevent anyone or anything from getting in/out. (shocking i know) I will make the desc better later on when i actually make the demo.</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#horror</span>
+                        <span class="game-tag">#singleplayer</span>
+                    </div>
+                    <span class="btn btn-locked">In Dev</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <!-- ISKRA: first card -->
+                <div class="team-member iskra" role="button" tabindex="0" aria-pressed="false" data-person="iskra">
+                    <img src="team_member1.png" alt="Team Member 1">
+                    <div class="team-info">
+                        <h3>IskraLabs</h3>
+                        <div class="pronouns">he/him</div>
+                        <div class="bio">
+                            Lead developer and founder of Riko Studios. Trying my best... 
+                        </div>
+                        <div class="team-tags">
+                            <span class="team-tag">#maincoder</span>
+                            <span class="team-tag">#3dmodeler</span>
+                        </div>
+                        <div class="team-links">
+                            <a href="https://iskralabs.itch.io/" class="team-link" target="_blank" rel="noopener">Itch.io</a>
+                            <a href="https://www.youtube.com/@IskraLabs" class="team-link" target="_blank" rel="noopener">YouTube</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIDZO: second card -->
+                <div class="team-member sidzo" role="button" tabindex="0" aria-pressed="false" data-person="sidzo">
+                    <img src="team_member2.png" alt="Team Member 2">
+                    <div class="team-info">
+                        <h3>Sidźo</h3>
+                        <div class="pronouns">crois/sant</div>
+                        <div class="bio">
+                            "Imagine a cool bio"
+                        </div>
+                        <div class="team-tags">
+                            <span class="team-tag">#bigbrainguy</span>
+                            <span class="team-tag">#3dmodeler</span>
+                            <span class="team-tag">#scripter</span>
+                        </div>
+                        <div class="team-links">
+                            <a href="https://www.youtube.com/@yepsizmo" class="team-link" target="_blank" rel="noopener">YouTube</a>
+                            <a href="https://sidzo.itch.io" class="team-link" target="_blank" rel="noopener">Itch.io</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Socials</h2>
+            <p>Wanna talk? or something... here are our links!</p>
+            
+            <h3 style="color: var(--accent-solid); margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
+            <div class="social-links">
+                <a href="mailto:marqueraft@gmail.com" class="social-link">
+                    📧 Email
+                </a>
+                <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank" rel="noopener">
+                    🐦 Twitter/X
+                </a>
+                <a href="https://discord.gg/EwmAnbVa8G" class="social-link" target="_blank" rel="noopener">
+                    💬 Discord
+                </a>
+            </div>
+
+            <h3 style="color: var(--accent-solid); margin-top: 2.5rem; font-size: 1.3rem;">Random Info</h3>
+            <p style="margin-top: 1rem;">
+                 Founded: 2024<br>
+                 Based: Poland<br>
+                 Platform: PC<br>
+                 Status: Restarting Development (Starting again after 1 year ish)
+            </p>
+        </section>
     </div>
-  </section>
 
-  <section id="team">
-    <h2>Our Team</h2>
-    <div class="team-grid">
-      <!-- ISKRA (red) -->
-      <div class="team-member iskra" role="button" tabindex="0" aria-pressed="false" data-person="iskra">
-        <img src="team_member1.png" alt="Iskra avatar">
-        <div class="team-info">
-          <h3>IskraLabs</h3>
-          <div class="pronouns">he/him</div>
-          <div class="bio">Lead developer and founder. Chaos admin.</div>
-          <div class="team-tags"><span class="team-tag">#maincoder</span><span class="team-tag">#3dmodeler</span></div>
-          <div class="team-links">
-            <a class="team-link" href="https://iskralabs.itch.io/" target="_blank" rel="noopener">Itch.io</a>
-            <a class="team-link" href="https://www.youtube.com/@IskraLabs" target="_blank" rel="noopener">YouTube</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SIDZO (purple) -->
-      <div class="team-member sidzo" role="button" tabindex="0" aria-pressed="false" data-person="sidzo">
-        <img src="team_member2.png" alt="Sidzo avatar">
-        <div class="team-info">
-          <h3>Sidźo</h3>
-          <div class="pronouns">crois/sant</div>
-          <div class="bio">"Imagine a cool bio"</div>
-          <div class="team-tags"><span class="team-tag">#bigbrainguy</span><span class="team-tag">#scripter</span></div>
-          <div class="team-links">
-            <a class="team-link" href="https://www.youtube.com/@yepsidzo" target="_blank" rel="noopener">YouTube</a>
-            <a class="team-link" href="https://sidzo.itch.io" target="_blank" rel="noopener">Itch.io</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <h2>Socials</h2>
-    <p>Wanna talk? Here are our links.</p>
-    <div class="social-links">
-      <a class="social-link" href="mailto:marqueraft@gmail.com">📧 Email</a>
-      <a class="social-link" href="https://x.com/IskraNiemi41687" target="_blank" rel="noopener">🐦 X</a>
-      <a class="social-link" href="https://discord.gg/EwmAnbVa8G" target="_blank" rel="noopener">💬 Discord</a>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <p>&copy; 2025 Riko Studios. All rights reserved.</p>
-  <p>Made with ❤️ for gamers</p>
-</footer>
-
-<script>
-/*
-  Theme rules:
-  - Default = Fusion (no body.theme-* applied)
-  - Click Iskra -> body.classList toggles 'theme-iskra' (plays flicker overlay & per-element flicker)
-  - Click Sidzo -> body.classList toggles 'theme-sidzo' (smooth 0.5s fade)
-  - Click outside team cards -> return to Fusion (remove both theme classes)
-  - Clicking the same card again toggles it off (returns to Fusion)
-  - Keyboard: Enter / Space toggles when focused on the card
-*/
-
-(function(){
-  const body = document.body;
-  const iskra = document.querySelector('.team-member.iskra');
-  const sidzo = document.querySelector('.team-member.sidzo');
-
-  if(!iskra || !sidzo) return;
-
-  // Helpers
-  function clearThemes(){
-    body.classList.remove('theme-iskra','theme-sidzo');
-    body.classList.remove('flicker-iskra');
-    iskra.setAttribute('aria-pressed','false');
-    sidzo.setAttribute('aria-pressed','false');
-  }
-
-  function activateIskra(){
-    // toggle
-    if(body.classList.contains('theme-iskra')){
-      clearThemes();
-      return;
-    }
-    // switch off sidzo if active
-    body.classList.remove('theme-sidzo');
-    // immediately enable iskra variables
-    body.classList.add('theme-iskra');
-    iskra.setAttribute('aria-pressed','true');
-    sidzo.setAttribute('aria-pressed','false');
-
-    // play a flicker overlay and element flickers
-    body.classList.add('flicker-iskra');
-    applyIskraElementFlicker();
-
-    // remove overlay class after animation finishes
-    setTimeout(()=> body.classList.remove('flicker-iskra'), 520);
-  }
-
-  function activateSidzo(){
-    // toggle
-    if(body.classList.contains('theme-sidzo')){
-      clearThemes();
-      return;
-    }
-    // remove iskra
-    body.classList.remove('theme-iskra');
-    // add sidzo class (this will animate due to CSS transition defined for .theme-sidzo)
-    body.classList.add('theme-sidzo');
-    sidzo.setAttribute('aria-pressed','true');
-    iskra.setAttribute('aria-pressed','false');
-
-    // no flicker overlay for sidzo (just smooth fade)
-  }
-
-  // Add short per-element flicker for Iskra activation
-  function applyIskraElementFlicker(){
-    const els = document.querySelectorAll('header img, .logo-glow, .btn, section h2, .team-info h3, .team-member, nav a');
-    els.forEach(el=>{
-      el.classList.add('iskra-flicker');
-      // cleanup
-      setTimeout(()=> el.classList.remove('iskra-flicker'), 460);
-    });
-  }
-
-  // Click handlers
-  iskra.addEventListener('click', function(e){
-    e.stopPropagation();
-    activateIskra();
-  });
-  sidzo.addEventListener('click', function(e){
-    e.stopPropagation();
-    activateSidzo();
-  });
-
-  // Keyboard support (Enter / Space toggles)
-  [iskra, sidzo].forEach(el=>{
-    el.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        if(el.classList.contains('iskra')) activateIskra();
-        else activateSidzo();
-      }
-    });
-  });
-
-  // Clicking outside any team-member returns to Fusion (neutral)
-  document.addEventListener('click', (e)=>{
-    if(e.target.closest('.team-member')) return; // inside a card
-    clearThemes();
-  });
-
-  // Touchend as well for mobile
-  document.addEventListener('touchend', (e)=>{
-    if(e.target.closest('.team-member')) return;
-    clearThemes();
-  }, { passive: true });
-
-  // initialize to Fusion (no theme classes)
-  clearThemes();
-})();
-</script>
-</body>
-</html>
+    <footer>
+        <p>&copy; 2025 Riko Studios. All rights reserved.</p>
+        <p>Made with ❤️
