@@ -1,322 +1,625 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Riko Studios - Game Development</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Roboto Condensed',sans-serif;
-  background:#0a0a0a;
-  color:#fff;
-  line-height:1.6;
-  overflow-x:hidden;
-  position:relative;
-}
-/* Smooth liquid animated background */
-body::before{
-  content:'';
-  position:fixed;
-  top:0;left:0;width:100%;height:100%;
-  background:
-    radial-gradient(circle at 25% 30%,rgba(120,0,0,0.25) 0%,transparent 50%),
-    radial-gradient(circle at 75% 70%,rgba(90,0,120,0.25) 0%,transparent 55%),
-    radial-gradient(circle at 60% 20%,rgba(139,0,0,0.2) 0%,transparent 60%),
-    linear-gradient(180deg,#0a0a0a 0%,#1a1a1a 50%,#0a0a0a 100%);
-  filter:blur(60px);
-  animation:liquidMove 25s ease-in-out infinite alternate;
-  transition:background 1.5s ease-in-out;
-  z-index:-2;
-}
-@keyframes liquidMove{
-  0%{background-position:0% 0%,100% 100%,50% 0%;}
-  50%{background-position:50% 50%,50% 50%,70% 30%;}
-  100%{background-position:100% 0%,0% 100%,30% 70%;}
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riko Studios - Game Development</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Header */
-header{
-  background:rgba(20,20,20,0.7);
-  backdrop-filter:blur(20px);
-  padding:2rem 0 1rem 0;
-  text-align:center;
-  border-bottom:1px solid rgba(139,0,0,0.3);
-  box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(139,0,0,0.1);
-  position:sticky;top:0;z-index:100;
-  transition:all 1.5s ease-in-out;
-}
-header img{
-  max-width:600px;width:90%;margin:0 auto;display:block;
-  filter:drop-shadow(0 0 20px rgba(255,0,0,0.3));
-  animation:fadeIn 1s ease-in;
-  transition:filter 1.5s ease-in-out;
-}
-header:hover img{filter:drop-shadow(0 0 35px rgba(160,0,160,0.6));}
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background: #0a0a0a;
+            color: #ff3333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-.logo-glow{
-  width:80%;max-width:500px;height:3px;margin:1.5rem auto 1rem auto;
-  background:linear-gradient(90deg,transparent 0%,rgba(139,0,0,0.5) 20%,rgba(255,0,0,0.8) 50%,rgba(139,0,0,0.5) 80%,transparent 100%);
-  box-shadow:0 0 20px rgba(255,0,0,0.5);
-  animation:pulse 3s ease-in-out infinite;
-  transition:box-shadow 1.5s ease-in-out;
-}
-header:hover .logo-glow{box-shadow:0 0 30px rgba(160,0,160,0.8);}
-@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
-header p{font-size:1.1rem;margin-top:.5rem;color:#999;font-weight:300}
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 25% 30%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 75% 70%, rgba(255, 0, 0, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            filter: blur(60px);
+            animation: flow 18s ease-in-out infinite alternate;
+            z-index: -1;
+        }
 
-/* Nav */
-nav{
-  background:rgba(15,15,15,0.8);
-  backdrop-filter:blur(15px);
-  padding:1.2rem 0;text-align:center;
-  border-bottom:1px solid rgba(139,0,0,0.2);
-  position:sticky;top:0;z-index:99;
-  transition:all 1.5s ease-in-out;
-}
-nav a{
-  color:#ccc;text-decoration:none;margin:0 1.5rem;
-  font-size:1.1rem;font-weight:400;
-  padding:0.7rem 1.5rem;border-radius:8px;
-  display:inline-block;text-transform:uppercase;letter-spacing:1px;
-  transition:all 1.5s ease-in-out;
-}
-nav a:hover{
-  color:#ff3333;background:rgba(139,0,0,0.2);
-  box-shadow:0 0 20px rgba(255,0,0,0.3);
-  text-shadow:0 0 10px rgba(255,0,0,0.5);
-}
+        @keyframes flow {
+            0% { background-position: 0% 0%, 100% 100%; }
+            50% { background-position: 50% 50%, 50% 50%; }
+            100% { background-position: 100% 0%, 0% 100%; }
+        }
 
-/* Layout */
-.container{max-width:1200px;margin:0 auto;padding:3rem 2rem;}
-section{
-  background:rgba(25,25,25,0.6);
-  backdrop-filter:blur(15px);
-  margin:3rem auto;padding:2.5rem;
-  border-radius:20px;
-  border:1px solid rgba(139,0,0,0.3);
-  box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 0 60px rgba(255,0,0,0.03);
-  animation:slideUp .8s ease-out;
-  scroll-margin-top:100px;
-  transition:all 1.5s ease-in-out;
-}
-section h2{
-  font-size:2.5rem;margin-bottom:1.5rem;
-  color:#ff3333;text-shadow:0 0 20px rgba(255,0,0,0.4);
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  transition:color 1.5s ease-in-out;
-}
-section:hover h2{color:#c040ff;text-shadow:0 0 25px rgba(160,0,160,0.6);}
+        header {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(20px);
+            text-align: center;
+            padding: 2rem 0 1rem 0;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 40px rgba(139, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.5s ease-in-out;
+        }
 
-/* Cards */
-.games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:2rem;}
-.game-card{
-  background:rgba(15,15,15,0.8);backdrop-filter:blur(10px);
-  padding:2rem;border-radius:15px;
-  border:1px solid rgba(80,80,80,0.3);
-  box-shadow:0 4px 20px rgba(0,0,0,0.5);
-  transition:all 1.5s ease-in-out;
-}
-.game-card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 12px 40px rgba(139,0,0,0.4),0 0 30px rgba(255,0,0,0.2);
-  border-color:rgba(139,0,0,0.6);
-}
-.game-card h3{color:#ff4444;margin-bottom:1rem;font-size:1.5rem;text-shadow:0 0 10px rgba(255,0,0,0.3);}
-.game-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;}
-.game-tag{background:#000;color:#fff;padding:.4rem .9rem;border-radius:15px;font-size:.85rem}
+        header:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 50px rgba(255, 0, 0, 0.3);
+        }
 
-/* Team */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.5rem;margin-top:2rem;}
-.team-member{
-  background:rgba(15,15,15,0.8);
-  backdrop-filter:blur(10px);
-  padding:2rem;border-radius:15px;
-  border:1px solid rgba(80,80,80,0.3);
-  display:flex;gap:1.5rem;align-items:flex-start;
-  transition:all 1.5s ease-in-out;
-}
-.team-member:hover{
-  border-color:rgba(139,0,0,0.6);
-  box-shadow:0 8px 30px rgba(139,0,0,0.3);
-}
-.team-member img{
-  width:120px;height:120px;border-radius:15px;object-fit:cover;
-  border:2px solid rgba(139,0,0,0.4);
-  box-shadow:0 0 20px rgba(255,0,0,0.2);
-  flex-shrink:0;
-  transition:all 1.5s ease-in-out;
-}
-.team-member:hover img{box-shadow:0 0 25px rgba(160,0,160,0.5);border-color:rgba(160,0,160,0.5);}
-.team-info h3{color:#ff4444;font-size:1.6rem;margin-bottom:.3rem;font-weight:700;transition:color 1.5s ease-in-out;}
-.team-member:hover .team-info h3{color:#c040ff;}
-.pronouns{color:#999;font-size:.9rem;margin-bottom:1rem;font-weight:300;}
-.bio{color:#ccc;line-height:1.6;}
-.team-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;}
-.team-tag{background:#000;color:#fff;padding:.4rem .9rem;border-radius:15px;font-size:.85rem;}
-.team-links{display:flex;gap:1rem;margin-top:.8rem;flex-wrap:wrap;}
-.team-link{transition:all 1.5s ease-in-out;opacity:.8;}
-.team-link:hover{opacity:1;filter:drop-shadow(0 0 8px rgba(255,68,68,0.6));transform:translateY(-2px);}
+        header img {
+            max-width: 600px;
+            width: 90%;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.4));
+            transition: transform 0.5s, filter 0.5s;
+        }
 
-/* Buttons */
-.btn{
-  display:inline-block;
-  background:linear-gradient(135deg,rgba(139,0,0,0.8)0%,rgba(255,0,0,0.6)100%);
-  color:white;padding:.9rem 2.5rem;border-radius:30px;text-decoration:none;
-  font-weight:700;margin-top:1rem;box-shadow:0 4px 20px rgba(139,0,0,0.4);
-  border:1px solid rgba(255,0,0,0.3);
-  text-transform:uppercase;letter-spacing:1px;
-  transition:all 1.5s ease-in-out;
-}
-.btn:hover{
-  background:linear-gradient(135deg,rgba(160,0,160,0.8)0%,rgba(255,0,0,0.8)100%);
-  transform:translateY(-2px);
-  box-shadow:0 8px 30px rgba(160,0,160,0.5),0 0 40px rgba(255,0,0,0.3);
-}
+        header:hover img {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 35px rgba(255, 0, 0, 0.7));
+        }
 
-/* Footer */
-footer{
-  background:rgba(10,10,10,0.9);
-  backdrop-filter:blur(15px);
-  text-align:center;
-  padding:2.5rem;margin-top:4rem;
-  border-top:1px solid rgba(139,0,0,0.3);
-  color:#666;
-  transition:all 1.5s ease-in-out;
-}
-footer p{margin:.5rem 0}
+        .logo-glow {
+            width: 80%;
+            max-width: 500px;
+            height: 3px;
+            margin: 1.5rem auto 1rem auto;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.6) 50%, transparent 100%);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            animation: pulse 3s ease-in-out infinite;
+        }
 
-/* Animations */
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
 
-/* Responsive */
-@media(max-width:768px){
-  header img{max-width:90%}
-  nav a{display:block;margin:.5rem auto;max-width:200px}
-  .container{padding:2rem 1rem}
-  section{padding:2rem 1.5rem;margin:2rem auto}
-  section h2{font-size:2rem}
-  .games-grid{grid-template-columns:1fr;gap:1.5rem}
-  .team-grid{grid-template-columns:1fr}
-  .team-member{flex-direction:column;align-items:center;text-align:center}
-}
-</style>
+        header p {
+            color: #ff6666;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(15px);
+            padding: 1.2rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        nav a {
+            color: #ff3333;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.4s ease-in-out;
+        }
+
+        nav a:hover {
+            background: rgba(139, 0, 0, 0.2);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            background: rgba(25, 25, 25, 0.6);
+            backdrop-filter: blur(15px);
+            margin: 3rem auto;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: transform 0.4s, box-shadow 0.4s;
+            scroll-margin-top: 100px;
+        }
+
+        section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 45px rgba(255, 0, 0, 0.3);
+        }
+
+        section h2 {
+            color: #ff4444;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            font-size: 2.3rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        section p {
+            color: #ff8888;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .game-card {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 10px 35px rgba(255, 0, 0, 0.3);
+        }
+
+        .game-card h3 {
+            color: #ff4444;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .game-card p {
+            color: #ff9999;
+        }
+
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .game-tag {
+            background: #000;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 1rem;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.6) 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            transition: all 0.4s ease-in-out;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
+        }
+
+        .btn-locked {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(60, 60, 60, 0.6) 100%);
+            color: #666;
+            cursor: not-allowed;
+            border: 1px solid rgba(80, 80, 80, 0.3);
+        }
+
+        .btn-locked:hover {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(60, 60, 60, 0.6) 100%);
+            transform: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.4s ease-in-out;
+        }
+
+        .team-member:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 0, 0, 0.5);
+            box-shadow: 0 8px 35px rgba(255, 0, 0, 0.3);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 0, 0, 0.4);
+            transition: all 0.4s ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .team-member:hover img {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-info h3 {
+            color: #ff4444;
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .team-info .pronouns {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .team-info .bio {
+            color: #ff8888;
+            line-height: 1.6;
+        }
+
+        .team-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .team-tag {
+            background: #000;
+            color: #fff;
+            padding: 0.4rem 0.9rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .team-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .team-link {
+            transition: all 0.3s;
+            opacity: 0.8;
+        }
+
+        .team-link:hover {
+            opacity: 1;
+            filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.6));
+            transform: translateY(-2px);
+        }
+
+        .team-link img {
+            width: 32px;
+            height: 32px;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-block;
+            background: rgba(15, 15, 15, 0.8);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            color: #ff4444;
+            text-decoration: none;
+            transition: all 0.4s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-link:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        footer {
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            color: #ff6666;
+            border-top: 1px solid rgba(139, 0, 0, 0.4);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header img {
+                max-width: 90%;
+            }
+            
+            nav a {
+                display: block;
+                margin: 0.5rem auto;
+                max-width: 200px;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            section {
+                padding: 2rem 1.5rem;
+                margin: 2rem auto;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-member {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <img src="Riko_Studios.png" alt="Riko Studios Logo">
-  <div class="logo-glow"></div>
-  <p>As long as it works, that's all that matters.</p>
-</header>
+    <header>
+        <img src="Riko_Studios.png" alt="Riko Studios Logo">
+        <div class="logo-glow"></div>
+        <p>No slogan yet...</p>
+    </header>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#games">Games</a>
-  <a href="#team">Team</a>
-  <a href="#contact">Contact</a>
-</nav>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#games">Games</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-<div class="container">
-<section id="about">
-  <h2>About Us</h2>
-  <p>Welcome to Riko Studios! It’s just the two of us, me and Sidzo stumbling our way through the indie game dev world. We hope you enjoy our… well, projects. To be honest, we don’t have any fully working games just yet. But I’m revisiting the idea of creating a demo for my game, Afterhours. By my estimate, it might be ready by the end of the month… though, you know, that’s just me. And who knows? Maybe I’ll finally buy the steam thing so i can upload the demo.</p>
-  <p style="margin-top:1rem;">Founded in 2024, By IskraLabs. (That's kinda it...)</p>
-</section>
+    <div class="container">
+        <section id="about">
+            <h2>About Us</h2>
+            <p>
+                Welcome to Riko Studios! We're an indie game development studio dedicated to 
+                changing the gaming community with my shitty ass games. From concept to release, 
+                every game is crafted with... Love... Maybe not the best skill but it still counts.
+            </p>
+            <p style="margin-top: 1rem;">
+                Founded in 2024, By IskraLabs. (No idea what else i can say here)
+            </p>
+        </section>
 
-<section id="games">
-  <h2>Our Games</h2>
-  <div class="games-grid">
-    <div class="game-card">
-      <h3>MozarixOS</h3>
-      <p>OS simulator, doesnt really do anything... (This isnt an actuall game its just a thing to test my skills)</p>
-      <div class="game-tags">
-        <span class="game-tag">#simulator</span>
-        <span class="game-tag">#test</span>
-      </div>
-      <a href="https://iskralabs.itch.io/mozarixos" class="btn" target="_blank">Learn More</a>
+        <section id="games">
+            <h2>Our Games</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <h3>MozarixOS</h3>
+                    <p>OS simulator, doesnt really do anything...</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#simulator</span>
+                        <span class="game-tag">#test</span>
+                    </div>
+                    <a href="https://iskralabs.itch.io/mozarixos" class="btn" target="_blank">Learn More</a>
+                </div>
+                
+                <div class="game-card">
+                    <h3>Site-401</h3>
+                    <p>SCP thing? Also not a game just a skill test.</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#horror</span>
+                        <span class="game-tag">#simulator</span>
+                        <span class="game-tag">#test</span>
+                    </div>
+                    <a href="https://iskralabs.itch.io/site-401" class="btn" target="_blank">Learn More</a>
+                </div>
+                
+                <div class="game-card">
+                    <h3>After Hours (In Dev)</h3>
+                    <p>It's a horror game... Your job is to secure the school and prevent anything from getting in or out.</p>
+                    <div class="game-tags">
+                        <span class="game-tag">#horror</span>
+                        <span class="game-tag">#singleplayer</span>
+                    </div>
+                    <span class="btn btn-locked">In Dev</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="team_member1.png" alt="IskraLabs">
+                    <div class="team-info">
+                        <h3>IskraLabs</h3>
+                        <div class="pronouns">he/him</div>
+                        <div class="bio">
+                            Lead developer and founder of Riko Studios. Trying my best...
+                        </div>
+                        <div class="team-tags">
+                            <span class="team-tag">#maincoder</span>
+                            <span class="team-tag">#3dmodeler</span>
+                        </div>
+                        <div class="team-links">
+                            <a href="https://iskralabs.itch.io/" class="team-link" target="_blank">
+                                <img src="itchio_logo.png" alt="Itch.io">
+                            </a>
+                            <a href="https://www.youtube.com/@IskraLabs" class="team-link" target="_blank">
+                                <img src="youtube_logo.png" alt="YouTube">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <img src="team_member2.png" alt="Sidźo">
+                    <div class="team-info">
+                        <h3>Sidźo</h3>
+                        <div class="pronouns">crois/sant</div>
+                        <div class="bio">
+                            "Imagine a cool bio"
+                        </div>
+                        <div class="team-tags">
+                            <span class="team-tag">#bigbrainguy</span>
+                            <span class="team-tag">#3dmodeler</span>
+                            <span class="team-tag">#scripter</span>
+                        </div>
+                        <div class="team-links">
+                            <a href="https://www.youtube.com/@yepsidzo" class="team-link" target="_blank">
+                                <img src="youtube_logo.png" alt="YouTube">
+                            </a>
+                            <a href="https://sidzo.itch.io" class="team-link" target="_blank">
+                                <img src="itchio_logo.png" alt="Itch.io">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p>Wanna talk? or something... here are our links!</p>
+            
+            <h3 style="color: #ff4444; margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
+            <div class="social-links">
+                <a href="mailto:marqueraft@gmail.com" class="social-link">
+                    📧 Email
+                </a>
+                <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank">
+                    🐦 Twitter/X
+                </a>
+                <a href="https://discord.gg/EwmAnbVa8G" class="social-link">
+                    💬 Discord
+                </a>
+            </div>
+
+            <h3 style="color: #ff4444; margin-top: 2.5rem; font-size: 1.3rem;">Random Info</h3>
+            <p style="margin-top: 1rem;">
+                 Founded: 2024<br>
+                 Based: Poland<br>
+                 Platform: PC<br>
+                 Status: Restarting Development (Starting again after 1 year ish)
+            </p>
+        </section>
     </div>
-    <div class="game-card">
-      <h3>Site-401</h3>
-      <p>Scp thing? Also not a game just a skill test</p>
-      <div class="game-tags">
-        <span class="game-tag">#horror</span>
-        <span class="game-tag">#simulator</span>
-        <span class="game-tag">#test</span>
-      </div>
-      <a href="https://iskralabs.itch.io/site-401" class="btn" target="_blank">Learn More</a>
-    </div>
-    <div class="game-card">
-      <h3>After Hours (In dev)</h3>
-      <p>It's a horror game... Your job is to secure the school and prevent anyone or anything from getting in/out.</p>
-      <div class="game-tags">
-        <span class="game-tag">#horror</span>
-        <span class="game-tag">#singleplayer</span>
-      </div>
-      <span class="btn btn-locked">In Dev</span>
-    </div>
-  </div>
-</section>
 
-<section id="team">
-  <h2>Our Team</h2>
-  <div class="team-grid">
-    <div class="team-member">
-      <img src="team_member1.png" alt="Team Member 1">
-      <div class="team-info">
-        <h3>IskraLabs</h3>
-        <div class="pronouns">he/him</div>
-        <div class="bio">Lead developer and founder of Riko Studios. Trying my best...</div>
-        <div class="team-tags">
-          <span class="team-tag">#maincoder</span>
-          <span class="team-tag">#3dmodeler</span>
-        </div>
-        <div class="team-links">
-          <a href="https://iskralabs.itch.io/" class="team-link" target="_blank">Itch.io</a>
-          <a href="https://www.youtube.com/@IskraLabs" class="team-link" target="_blank">YouTube</a>
-        </div>
-      </div>
-    </div>
-    <div class="team-member">
-      <img src="team_member2.png" alt="Team Member 2">
-      <div class="team-info">
-        <h3>Sidźo</h3>
-        <div class="pronouns">crois/sant</div>
-        <div class="bio">"Imagine a cool bio"</div>
-        <div class="team-tags">
-          <span class="team-tag">#bigbrainguy</span>
-          <span class="team-tag">#3dmodeler</span>
-          <span class="team-tag">#scripter</span>
-        </div>
-        <div class="team-links">
-          <a href="https://www.youtube.com/@yepsidzo" class="team-link" target="_blank">YouTube</a>
-          <a href="https://sidzo.itch.io" class="team-link" target="_blank">Itch.io</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <footer>
+        <p>© 2025 Riko Studios. All rights reserved.</p>
+        <p>Made with ❤️ for gamers</p>
+    </footer>
 
-<section id="contact">
-  <h2>Socials</h2>
-  <p>Wanna talk? or something... here are our links!</p>
-  <h3 style="color:#ff4444;margin-top:2rem;font-size:1.3rem;">Social Links</h3>
-  <div class="social-links">
-    <a href="mailto:marqueraft@gmail.com" class="social-link">📧 Email</a>
-    <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank">🐦 Twitter/X</a>
-    <a href="https://discord.gg/EwmAnbVa8G" class="social-link">💬 Discord</a>
-  </div>
-  <h3 style="color:#ff4444;margin-top:2.5rem;font-size:1.3rem;">Random Info</h3>
-  <p>Location: Somewhere on Earth...</p>
-  <p>Time zone: CET</p>
-</section>
-</div>
+    <script>
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
 
-<footer>
-  <p>© 2025 Riko Studios. All rights reserved.</p>
-  <p>"As long as it works, that's all that matters."</p>
-</footer>
+                targetSection.style.transition = 'all 0.3s';
+                targetSection.style.boxShadow = '0 0 40px rgba(255, 0, 0, 0.6)';
+                setTimeout(() => {
+                    targetSection.style.boxShadow = '';
+                }, 600);
+            });
+        });
+    </script>
 </body>
 </html>
