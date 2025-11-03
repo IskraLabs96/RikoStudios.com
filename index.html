@@ -1,36 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags tell browsers how to display your page -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riko Studios - Game Development</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
     
-    <!-- CSS styles - this is where you customize colors, fonts, layouts -->
     <style>
-        /* Reset default browser styling */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body: the main container for everything - dark background with red accent */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 50%, #1a0000 100%);
+            font-family: 'Roboto Condensed', sans-serif;
+            background: #0a0a0a;
             color: #ffffff;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Header: the top section with your logo/name */
+        /* Animated background with neon accents */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header with glassmorphism */
         header {
-            background: rgba(139, 0, 0, 0.2);
-            padding: 2rem 0;
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 2rem 0 1rem 0;
             text-align: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 3px solid #8B0000;
-            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                        0 0 60px rgba(139, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         header img {
@@ -39,131 +59,269 @@
             height: auto;
             margin: 0 auto;
             display: block;
-            filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.6));
+            filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.3));
             animation: fadeIn 1s ease-in;
         }
 
-        header h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 20px rgba(139, 0, 0, 0.8);
-            animation: fadeIn 1s ease-in;
-            color: #ff4444;
+        /* Contrast element under logo */
+        .logo-glow {
+            width: 80%;
+            max-width: 500px;
+            height: 3px;
+            margin: 1.5rem auto 1rem auto;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(139, 0, 0, 0.5) 20%, 
+                rgba(255, 0, 0, 0.8) 50%, 
+                rgba(139, 0, 0, 0.5) 80%, 
+                transparent 100%);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         header p {
-            font-size: 1.2rem;
-            margin-top: 1rem;
-            opacity: 0.9;
-            color: #cccccc;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            color: #999;
+            font-weight: 300;
         }
 
-        /* Navigation menu */
+        /* Navigation with glassmorphism - centered */
         nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1rem 0;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 1.2rem 0;
             text-align: center;
-            backdrop-filter: blur(5px);
-            border-bottom: 2px solid #8B0000;
+            border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 99;
         }
 
         nav a {
-            color: white;
+            color: #ccc;
             text-decoration: none;
             margin: 0 1.5rem;
             font-size: 1.1rem;
+            font-weight: 400;
             transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         nav a:hover {
-            color: #ff4444;
-            background: rgba(139, 0, 0, 0.3);
-            box-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+            color: #ff3333;
+            background: rgba(139, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
-        /* Main content container */
+        /* Container - centered content */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
 
-        /* Section: each major part of your page */
+        /* Sections with glassmorphism */
         section {
-            background: rgba(20, 20, 20, 0.8);
-            margin: 2rem 0;
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 2px solid #8B0000;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(25, 25, 25, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            margin: 3rem auto;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                        inset 0 0 60px rgba(255, 0, 0, 0.03);
             animation: slideUp 0.8s ease-out;
+            scroll-margin-top: 100px;
         }
 
         section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #ff4444;
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #ff3333;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* Grid layout for game cards */
+        section p {
+            color: #ccc;
+        }
+
+        /* Games grid - fixed for mobile */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 2rem;
         }
 
-        /* Individual game card */
         .game-card {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s;
-            border: 2px solid #4d0000;
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.4s;
+            border: 1px solid rgba(80, 80, 80, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4);
-            border-color: #8B0000;
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(139, 0, 0, 0.4),
+                        0 0 30px rgba(255, 0, 0, 0.2);
+            border-color: rgba(139, 0, 0, 0.6);
         }
 
         .game-card h3 {
             color: #ff4444;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
 
-        /* Button styling */
+        .game-card p {
+            color: #aaa;
+        }
+
+        /* Team member cards */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(80, 80, 80, 0.3);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.4s;
+        }
+
+        .team-member:hover {
+            border-color: rgba(139, 0, 0, 0.6);
+            box-shadow: 0 8px 30px rgba(139, 0, 0, 0.3);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 2px solid rgba(139, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .team-info {
+            flex: 1;
+        }
+
+        .team-info h3 {
+            color: #ff4444;
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .team-info .pronouns {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .team-info .bio {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* Buttons with neon effect */
         .btn {
             display: inline-block;
-            background: linear-gradient(135deg, #8B0000 0%, #ff4444 100%);
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.6) 100%);
             color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
+            padding: 0.9rem 2.5rem;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
             margin-top: 1rem;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #ff4444 0%, #8B0000 100%);
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(139, 0, 0, 0.6);
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5),
+                        0 0 40px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Social links section */
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(80, 80, 80, 0.3);
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-link:hover {
+            border-color: rgba(139, 0, 0, 0.6);
+            color: #ff4444;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
         }
 
         /* Footer */
         footer {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(15px);
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            border-top: 3px solid #8B0000;
+            padding: 2.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+            color: #666;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
         }
 
         /* Animations */
@@ -175,7 +333,7 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -183,50 +341,67 @@
             }
         }
 
-        /* Responsive design for mobile */
+        /* Mobile responsive */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
+            header img {
+                max-width: 90%;
             }
             
             nav a {
                 display: block;
-                margin: 0.5rem 0;
+                margin: 0.5rem auto;
+                max-width: 200px;
             }
-        }
 
-        /* Add some red glow particles effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            section {
+                padding: 2rem 1.5rem;
+                margin: 2rem auto;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-member {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header section: your studio name and tagline -->
     <header>
         <img src="Riko_Studios.png" alt="Riko Studios Logo">
+        <div class="logo-glow"></div>
         <p>No slogan yet...</p>
     </header>
 
-    <!-- Navigation: links to different sections -->
     <nav>
         <a href="#about">About</a>
         <a href="#games">Games</a>
+        <a href="#team">Team</a>
         <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Main content area -->
     <div class="container">
-        <!-- About section -->
         <section id="about">
             <h2>About Us</h2>
             <p>
@@ -235,69 +410,114 @@
                 every game is crafted with... Love... Maybe not the best skill but it still counts.
             </p>
             <p style="margin-top: 1rem;">
-                Founded in 2024, By IskraLabs. I hope i can achieve my goals since i have a few good ideas.
+                Founded in 2024, By IskraLabs. (No idea what else i can say here)
             </p>
         </section>
 
-        <!-- Games section -->
         <section id="games">
             <h2>Our Games</h2>
             <div class="games-grid">
-                <!-- Game card 1 -->
                 <div class="game-card">
-                    <h3>Game Title 1</h3>
-                    <p>An exciting adventure through mysterious worlds. Coming soon!</p>
+                    <h3>MozarixOS</h3>
+                    <p>OS simulator, doesnt really do anything... (This isnt an actuall game its just a thing to test my skills)</p>
                     <a href="#" class="btn">Learn More</a>
                 </div>
                 
-                <!-- Game card 2 -->
                 <div class="game-card">
-                    <h3>Game Title 2</h3>
-                    <p>Fast-paced action meets strategic gameplay. In development.</p>
+                    <h3>Site-401</h3>
+                    <p>Scp thing? Also not a game just a skill test</p>
                     <a href="#" class="btn">Learn More</a>
                 </div>
                 
-                <!-- Game card 3 -->
                 <div class="game-card">
-                    <h3>Game Title 3</h3>
-                    <p>A puzzle game that challenges your mind. Concept stage.</p>
+                    <h3>After Hours (In dev)</h3>
+                    <p>It's a horror game... Your job is to secure the school and prevent anyone or anything from getting in/out. (shocking i know) I will make the desc better later on when i actually make the demo.</p>
                     <a href="#" class="btn">Learn More</a>
                 </div>
             </div>
         </section>
 
-        <!-- Contact section -->
+        <section id="team">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="team_member1.png" alt="Team Member 1">
+                    <div class="team-info">
+                        <h3>IskraLabs</h3>
+                        <div class="pronouns">he/him</div>
+                        <div class="bio">
+                            Lead developer and founder of Riko Studios. Trying my best... 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <img src="team_member2.png" alt="Team Member 2">
+                    <div class="team-info">
+                        <h3>Sidźo</h3>
+                        <div class="pronouns">he/him</div>
+                        <div class="bio">
+                            "Imagine a cool bio"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contact">
             <h2>Get in Touch</h2>
-            <p>Interested in our games? Want to collaborate? Reach out to us!</p>
+            <p>Wanna talk? or something... here are our links!</p>
+            
+            <h3 style="color: #ff4444; margin-top: 2rem; font-size: 1.3rem;">Social Links</h3>
+            <div class="social-links">
+                <a href="mailto:marqueraft@gmail.com" class="social-link">
+                    📧 Email
+                </a>
+                <a href="https://x.com/IskraNiemi41687" class="social-link" target="_blank">
+                    🐦 Twitter/X
+                </a>
+                <a href="https://discord.gg/EwmAnbVa8G" class="social-link">
+                    💬 Discord
+                </a>
+            </div>
+
+            <h3 style="color: #ff4444; margin-top: 2.5rem; font-size: 1.3rem;">Random Info</h3>
             <p style="margin-top: 1rem;">
-                📧 Email: marqueraft@gmail.com<br>
-                🐦 Twitter: https://x.com/IskraNiemi41687<br>
-                💬 Discord: 
+                 Founded: 2024<br>
+                 Based: Poland<br>
+                 Platform: PC<br>
+                 Status: Restarting Development (Starting again after 1 year ish)
             </p>
-            <a href="mailto:marqueraft@gmail.com" class="btn">Contact Us</a>
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Riko Studios. All rights reserved.</p>
         <p>Made with ❤️ for gamers</p>
     </footer>
 
-    <!-- JavaScript: adds interactive behavior (optional) -->
     <script>
-        // Smooth scrolling for navigation links
+        // Smooth scrolling with nice animation
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
-                targetSection.scrollIntoView({ behavior: 'smooth' });
+                
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Add a flash effect when arriving at section
+                targetSection.style.transition = 'all 0.3s';
+                targetSection.style.boxShadow = '0 0 40px rgba(255, 0, 0, 0.6)';
+                setTimeout(() => {
+                    targetSection.style.boxShadow = '';
+                }, 600);
             });
         });
 
-        // Console message for visitors who check the code
         console.log('Test, And yes i am still learning. if you see this that means the code works.');
     </script>
 </body>
