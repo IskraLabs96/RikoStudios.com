@@ -289,15 +289,20 @@
         }
 
         .team-link {
-            color: #ff4444;
-            text-decoration: none;
-            font-size: 0.9rem;
             transition: all 0.3s;
+            opacity: 0.8;
         }
 
         .team-link:hover {
-            color: #ff6666;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            opacity: 1;
+            filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.6));
+            transform: translateY(-2px);
+        }
+
+        .team-link img {
+            width: 32px;
+            height: 32px;
+            display: block;
         }
 
         .btn {
