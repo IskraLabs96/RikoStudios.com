@@ -447,7 +447,7 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            text-decoration: none;
+            text-decoration: none !important;
             color: var(--text-muted);
             font-size: 0.6rem;
             text-transform: uppercase;
@@ -457,7 +457,11 @@
 
         .hero-scroll a:hover { color: var(--accent); }
 
-
+        .scroll-line {
+            width: 1px; height: 36px;
+            background: linear-gradient(to bottom, var(--accent-dim), transparent);
+            animation: scrollPulse 2.5s ease-in-out infinite;
+            transition: background var(--t-slow);
         }
 
         @keyframes scrollPulse {
@@ -694,7 +698,7 @@
             color: var(--text-muted);
         }
 
- 
+        /* ===== TEAM ===== */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1063,8 +1067,7 @@
         </div>
         <div class="hero-scroll">
             <a href="#about">
-                <span>Scroll</span>
-                <div class="scroll-line"></div>
+                
             </a>
         </div>
     </section>
@@ -1399,7 +1402,7 @@
         }
         requestAnimationFrame(loop);
 
-       
+        // ===== MOBILE MENU =====
         const tog = document.getElementById('menuToggle');
         const links = document.getElementById('navLinks');
         tog.addEventListener('click', () => {
